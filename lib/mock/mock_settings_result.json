@@ -1,0 +1,117 @@
+{
+    "projects": [
+        {
+            "name": "Пылеуловитель",
+            "company": "РМУ",
+            "town": "Россошь",
+            "stringShortCut": "пыл",
+            "numberShortCut": "321",
+            "finishDate": "2022-11-01T16:02:09.845"
+        },
+        {
+            "name": "Пылеуловитель",
+            "company": "РМУ",
+            "town": "Россошь",
+            "stringShortCut": "пыл",
+            "numberShortCut": "321",
+            "finishDate": "2022-11-01T16:02:09.845"
+        },
+        {
+            "name": "Пылеуловитель",
+            "company": "РМУ",
+            "town": "Россошь",
+            "stringShortCut": "пыл",
+            "numberShortCut": "321",
+            "finishDate": "2022-11-01T16:02:09.845"
+        }
+    ],
+    "shortcuts": [
+        "укр",
+        "пыл",
+        "щмиан"
+    ],
+    "employeeGroups": [
+        {
+            "groupName": "ТХ",
+            "persons": [
+                {
+                    "name": "Иванов",
+                    "sortingFactor": 100,
+                    "periodsOfWork": [
+                        {
+                            "dateOfHire": "2022-11-01T16:02:09.845",
+                            "dateOfRetire": "2022-11-01T16:02:09.845",
+                            "salary": 100
+                        }
+                    ]
+                }
+            ],
+            "sortingFactor": 100
+        },
+        {
+            "groupName": "КД",
+            "persons": [
+                {
+                    "name": "Петров",
+                    "sortingFactor": 200,
+                    "periodsOfWork": [
+                        {
+                            "dateOfHire": "2022-11-01T16:02:09.845",
+                            "dateOfRetire": "2022-11-01T16:02:09.845",
+                            "salary": 200
+                        }
+                    ]
+                },
+                {
+                    "name": "Сидоров",
+                    "sortingFactor": 300,
+                    "periodsOfWork": [
+                        {
+                            "dateOfHire": "2022-11-01T16:02:09.845",
+                            "dateOfRetire": "2022-11-01T16:02:09.845",
+                            "salary": 300
+                        }
+                    ]
+                }
+            ],
+            "sortingFactor": 200
+        },
+        {
+            "groupName": "СТ",
+            "persons": [
+                {
+                    "name": "Кобылин",
+                    "sortingFactor": 300,
+                    "periodsOfWork": [
+                        {
+                            "dateOfHire": "2022-11-01T16:02:09.845",
+                            "dateOfRetire": "2022-11-01T16:02:09.845",
+                            "salary": 100
+                        },
+                        {
+                            "dateOfHire": "2022-11-01T16:02:09.845",
+                            "dateOfRetire": "2022-11-01T16:02:09.845",
+                            "salary": 300
+                        }
+                    ]
+                },
+                {
+                    "name": "Лосев",
+                    "sortingFactor": 300,
+                    "periodsOfWork": [
+                        {
+                            "dateOfHire": "2022-11-01T16:02:09.845",
+                            "dateOfRetire": "2022-11-01T16:02:09.845",
+                            "salary": 300
+                        }
+                    ]
+                }
+            ],
+            "sortingFactor": 300
+        }
+    ],
+    "showFullWeekView": true,
+    "showFullWeekEmployeesView": true,
+    "showFullEmployeeView": true,
+    "showFullEmployeeWeekView": true
+}
