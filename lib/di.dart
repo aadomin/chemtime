@@ -12,10 +12,10 @@ class DI {
         ..initInteractor();
 
   late final recordsRepository = RecordsRepository();
-  // late final recordsInteractor = RecordsInteractor(
-  //     recordsRepository: recordsRepository,
-  //     settingsInteractor: settingsInteractor)
-  //   ..initInteractor();
+  late final recordsInteractor = RecordsInteractor(
+      recordsRepository: recordsRepository,
+      settingsInteractor: settingsInteractor)
+    ..initInteractor();
 
   late final reportsRepository = ReportsRepository();
   // late final reportsInteractor = ReportsInteractor(
