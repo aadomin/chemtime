@@ -3,7 +3,7 @@ import 'package:chemtime/mock/mock_settings.dart';
 import 'package:dart_date/dart_date.dart';
 import 'package:chemtime/domain_entities/record/record_entity.dart';
 
-class MockRecords {
+class MockRecordsProvider {
   List<RecordEntity> loadMockRecords() {
     final days = <DateTime>[
       DateTime.now().previousWeek,
@@ -15,7 +15,7 @@ class MockRecords {
     final hours = <double>[2, 4, 8, 16, 4];
 
     return <RecordEntity>[
-      for (var i = 0; i < 100; i++)
+      for (var i = 0; i < 40; i++)
         RecordEntity(
           projectName: mockSettings
               .projects[math.Random().nextInt(mockSettings.projects.length)]

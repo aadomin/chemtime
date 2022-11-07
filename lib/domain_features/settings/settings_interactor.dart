@@ -1,3 +1,4 @@
+import 'package:chemtime/domain_entities/employee_group/employee_group_entity.dart';
 import 'package:dart_date/dart_date.dart';
 import 'package:chemtime/domain_features/week_services/my_datetime_extention.dart';
 import 'package:chemtime/domain_entities/employee/employee_entity.dart';
@@ -85,6 +86,30 @@ class SettingsInteractor with ChangeNotifier {
         result.add(employee);
       }
     }
+    return result;
+  }
+
+  List<EmployeeGroupEntity> getTreeOfEmployeesWhoWasInTheCompanyAtWeek(
+      DateTime dayOfWeek) {
+    var result = <EmployeeGroupEntity>[];
+
+    for (final employeeGroup in settings.employeeGroups) {
+      var newGroup = employeeGroup.copyWith(employees: []);
+
+      for (final employee in employeeGroup.employees) {
+        if (wasEmployeeInTheCompanyAtWeek(employee, dayOfWeek)) {
+          newGroup = newGroup.copyWith(employees: [
+            ...newGroup.employees,
+            employee,
+          ]);
+        }
+      }
+
+      if (newGroup.employees.isNotEmpty) {
+        result.add(newGroup);
+      }
+    }
+
     return result;
   }
 }

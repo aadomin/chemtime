@@ -55,16 +55,16 @@ class RecordsInteractor with ChangeNotifier {
 
   // M A I N   T H I N G
 
-  List<RecordEntity>? getRecordsOfEmployeeAtWeek(
-      EmployeeEntity employee, DateTime firstDayOfWeek) {
+  List<RecordEntity> getRecordsOfEmployeeAtWeek(
+      EmployeeEntity employee, DateTime dayOfWeek) {
     if (!settingsInteractor.wasEmployeeInTheCompanyAtWeek(
-        employee, firstDayOfWeek)) {
-      return null;
+        employee, dayOfWeek)) {
+      throw Exception('not correct employee');
     }
     var listOfRecords = <RecordEntity>[];
     for (final record in records) {
       if (record.employeeName == employee.name &&
-          record.firstDayOfThatWeek.getWeek == firstDayOfWeek.getWeek) {
+          record.firstDayOfThatWeek.getWeek == dayOfWeek.getWeek) {
         listOfRecords.add(record);
       }
     }

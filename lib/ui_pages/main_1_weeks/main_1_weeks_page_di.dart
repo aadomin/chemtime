@@ -11,7 +11,7 @@ class Main1WeeksPageDI extends StatelessWidget {
     return Main1WeeksPage(
       viewModel: Main1WeeksPageVM(
         context: context,
-        //recordsInteractor: context.read<DI>().recordsInteractor,
+        recordsInteractor: context.read<DI>().recordsInteractor,
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:chemtime/ui_pages/main_1_weeks/employees_of_week_page_di.dart';
 import 'package:chemtime/ui_pages/main_1_weeks/main_1_weeks_page_di.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class _MyMainScaffoldState extends State<MyMainScaffold> {
     return Scaffold(
       body: [
         (() => const Main1WeeksPageDI()).call(),
-        (() => const Center()).call(),
+        (() => const EmployeesOfWeekPageDI()).call(),
         (() => const Center()).call(),
         (() => const Center()).call(),
         (() => const Center()).call(),

@@ -13,8 +13,8 @@ class MockSettings {
   late final dateNow = DateTime.now();
   late final dateEstablish = DateTime(2008, 10, 10);
   late final dateOfWorldEnd = DateTime(2222, 10, 10);
-  late final date2NextWeek = dateNow.nextWeek.nextWeek;
-  late final date2PrevWeek = dateNow.previousWeek.previousWeek;
+  late final date2NextWeek = dateNow.nextWeek;
+  late final date2PrevWeek = dateNow.previousWeek;
   late final dateProjectFinish = DateTime.now(); //?
 
   late final projects = [
@@ -58,6 +58,8 @@ class MockSettings {
       dateOfHire: dateEstablish, dateOfRetire: date2PrevWeek, salary: 20000);
   late final period2 = WorkPeriodEntity(
       dateOfHire: date2NextWeek, dateOfRetire: dateOfWorldEnd, salary: 30000);
+  late final period3 = WorkPeriodEntity(
+      dateOfHire: dateNow, dateOfRetire: dateOfWorldEnd, salary: 30000);
 
   late final employees = [
     EmployeeEntity(
@@ -71,11 +73,11 @@ class MockSettings {
     EmployeeEntity(
         name: 'Герцен Миша', sortingFactor: 500, periodsOfWork: [periodLong]),
     EmployeeEntity(
-        name: 'Герцен М.', sortingFactor: 600, periodsOfWork: [periodLong]),
+        name: 'Лосева И.', sortingFactor: 600, periodsOfWork: [periodLong]),
     EmployeeEntity(
-        name: 'Село', sortingFactor: 700, periodsOfWork: [period1, period2]),
+        name: 'Отпуск', sortingFactor: 700, periodsOfWork: [period1, period2]),
     EmployeeEntity(
-        name: 'Лосев А.', sortingFactor: 800, periodsOfWork: [period2]),
+        name: 'Принят А.', sortingFactor: 800, periodsOfWork: [period3]),
   ];
 
   late final group1 = EmployeeGroupEntity(
@@ -98,7 +100,7 @@ class MockSettings {
     projects: projects,
     shortcuts: [
       for (var i = 0; i < 15; i++)
-        projects[math.Random().nextInt(15)].stringShortCut,
+        projects[math.Random().nextInt(projects.length)].stringShortCut,
     ],
     employeeGroups: [group1, group2, group3],
     showFullWeekView: true,

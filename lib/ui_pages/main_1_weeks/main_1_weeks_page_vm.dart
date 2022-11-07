@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 class Main1WeeksPageVM with ChangeNotifier {
   Main1WeeksPageVM({
     required this.context,
-    //required this.recordsInteractor,
+    required this.recordsInteractor,
   });
   BuildContext context;
-  //RecordsInteractor recordsInteractor;
+  RecordsInteractor recordsInteractor;
 
   late List<Listenable> listenTo = []; //TODO recordsInteractor
 
@@ -40,17 +40,17 @@ class Main1WeeksPageVM with ChangeNotifier {
   String shiftedWeekNumber(int shift) =>
       (DateTime.now().getWeek + shift).toString(); //TODO переход года
 
-  // String getNotFilledEmployeesAtWeek(int shift) {
-  //   final employees = recordsInteractor
-  //       .getNotFilledEmployeesAtWeek(DateTime.now().mondayBuilder(shift));
-  //   var text = '';
-  //   for (final employee in employees) {
-  //     if (text == '') {
-  //       text = employee.name;
-  //     } else {
-  //       text = '$text, ${employee.name}';
-  //     }
-  //   }
-  //   return text;
-  // }
+  String getNotFilledEmployeesAtWeek(int shift) {
+    final employees = recordsInteractor
+        .getNotFilledEmployeesAtWeek(DateTime.now().mondayBuilder(shift));
+    var text = '';
+    for (final employee in employees) {
+      if (text == '') {
+        text = employee.name;
+      } else {
+        text = '$text, ${employee.name}';
+      }
+    }
+    return text;
+  }
 }

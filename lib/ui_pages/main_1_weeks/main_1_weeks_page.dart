@@ -61,7 +61,8 @@ class _Main1WeeksPageState extends State<Main1WeeksPage> {
             child: ListTile(
               title: Text(
                   '#$index, ${___vm.shiftedWeekNumber(index)}, ${___vm.shiftedMonday(index)} - ${___vm.shiftedSunday(index)}'),
-              // subtitle: Text(___vm.getNotFilledEmployeesAtWeek(index)),
+              subtitle:
+                  Text('без отчетов: ${___vm.getNotFilledEmployeesAtWeek(index)}'),
               trailing: const Icon(Icons.chevron_right),
             ),
           ),
