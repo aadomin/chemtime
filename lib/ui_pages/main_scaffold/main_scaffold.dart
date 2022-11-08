@@ -19,7 +19,9 @@ class _MyMainScaffoldState extends State<MyMainScaffold> {
     return Scaffold(
       body: [
         (() => const Main1WeeksPageDI()).call(),
-        (() => const EmployeesOfWeekPageDI()).call(),
+        (() => EmployeesOfWeekPageDI(
+              selectedDayOfWeek: DateTime.now(),
+            )).call(),
         (() => const Center()).call(),
         (() => const Center()).call(),
         (() => const Center()).call(),

@@ -5,9 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class EmployeesOfWeekPageDI extends StatelessWidget {
-  const EmployeesOfWeekPageDI({super.key});
+  const EmployeesOfWeekPageDI({
+    required this.selectedDayOfWeek,
+    super.key,
+  });
 
   static String get route => '/weeks-employees';
+
+  final DateTime selectedDayOfWeek;
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +21,7 @@ class EmployeesOfWeekPageDI extends StatelessWidget {
         context: context,
         recordsInteractor: context.read<DI>().recordsInteractor,
         settingsInteractor: context.read<DI>().settingsInteractor,
+        selectedDayOfWeek: selectedDayOfWeek,
       ),
     );
   }

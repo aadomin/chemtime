@@ -39,26 +39,27 @@ class _EmployeesOfWeekPageState extends State<EmployeesOfWeekPage> {
     debugPrint('###_rows### $_rows');
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text(___vm.title),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.arrow_circle_left_outlined),
-              onPressed: ___vm.onPreviousWeek,
-            ),
-            IconButton(
-              icon: const Icon(Icons.arrow_circle_right_outlined),
-              onPressed: ___vm.onNextWeek,
-            ),
-          ],
-        ),
-        body: ListView.separated(
-            itemBuilder: (context, index) {
-              return _rows[index];
-            },
-            separatorBuilder: (_, __) => const Divider(height: 2.0),
-            itemCount: ___vm.employeesGroupsTree.length +
-                ___vm.employeesAndRecords.length));
+      appBar: AppBar(
+        title: Text(___vm.title),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.arrow_circle_left_outlined),
+            onPressed: ___vm.onPreviousWeek,
+          ),
+          IconButton(
+            icon: const Icon(Icons.arrow_circle_right_outlined),
+            onPressed: ___vm.onNextWeek,
+          ),
+        ],
+      ),
+      body: ListView.separated(
+          itemBuilder: (context, index) {
+            return _rows[index];
+          },
+          separatorBuilder: (_, __) => const Divider(height: 2.0),
+          itemCount: ___vm.employeesGroupsTree.length +
+                ___vm.employeesAndRecords.length),
+    );
   }
 
   List<Widget> _buildRows() {

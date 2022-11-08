@@ -13,10 +13,12 @@ class EmployeesOfWeekPageVM with ChangeNotifier {
     required this.context,
     required this.settingsInteractor,
     required this.recordsInteractor,
+    required this.selectedDayOfWeek,
   });
   BuildContext context;
   SettingsInteractor settingsInteractor;
   RecordsInteractor recordsInteractor;
+  DateTime selectedDayOfWeek;
 
   late List<Listenable> listenTo = [settingsInteractor, recordsInteractor];
 
@@ -35,41 +37,42 @@ class EmployeesOfWeekPageVM with ChangeNotifier {
   }
 
   Map<EmployeeEntity, List<RecordEntity>> employeesAndRecords = {};
-
   List<EmployeeGroupEntity> employeesGroupsTree = [];
 
-  late DateTime currentDayOfWeek = DateTime.now();
-
   void _loadData() {
+    employeesAndRecords.clear();
+
     for (final employee in settingsInteractor
-        .getEmployeesWhoWasInTheCompanyAtWeek(currentDayOfWeek)) {
+        .getEmployeesWhoWasInTheCompanyAtWeek(selectedDayOfWeek)) {
       employeesAndRecords[employee] = recordsInteractor
-          .getRecordsOfEmployeeAtWeek(employee, currentDayOfWeek);
+          .getRecordsOfEmployeeAtWeek(employee, selectedDayOfWeek);
     }
 
     employeesGroupsTree = settingsInteractor
-        .getTreeOfEmployeesWhoWasInTheCompanyAtWeek(currentDayOfWeek);
+        .getTreeOfEmployeesWhoWasInTheCompanyAtWeek(selectedDayOfWeek);
 
     debugPrint('### employeesGroupsTree ### $employeesGroupsTree');
     debugPrint('### employeesAndRecords ### $employeesAndRecords');
     notifyListeners();
+
+    // second try
   }
 
   void onPreviousWeek() {
-    currentDayOfWeek = currentDayOfWeek.add(const Duration(days: -7));
+    selectedDayOfWeek = selectedDayOfWeek.add(const Duration(days: -7));
     _loadData();
   }
 
   void onNextWeek() {
-    currentDayOfWeek = currentDayOfWeek.add(const Duration(days: 7));
+    selectedDayOfWeek = selectedDayOfWeek.add(const Duration(days: 7));
     _loadData();
   }
 
   String get title {
-    final monday = currentDayOfWeek.mondayOfThisWeek.russianDate;
-    final sunday = currentDayOfWeek.sundayOfThisWeek.russianDate;
+    final monday = selectedDayOfWeek.mondayOfThisWeek.russianDate;
+    final sunday = selectedDayOfWeek.sundayOfThisWeek.russianDate;
     final ifCurrent =
-        currentDayOfWeek.getWeek == DateTime.now().getWeek ? '(текущая)' : '';
-    return '${currentDayOfWeek.getWeek}. $monday - $sunday $ifCurrent';
+        selectedDayOfWeek.getWeek == DateTime.now().getWeek ? '(текущая)' : '';
+    return '${selectedDayOfWeek.getWeek}. $monday - $sunday $ifCurrent ${employeesAndRecords.length} ${employeesGroupsTree.length}';
   }
 }

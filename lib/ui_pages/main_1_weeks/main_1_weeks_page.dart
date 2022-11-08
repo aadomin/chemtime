@@ -1,3 +1,4 @@
+import 'package:chemtime/domain_features/week_services/my_datetime_extention.dart';
 import 'package:infinite_listview/infinite_listview.dart';
 import 'package:chemtime/ui_pages/main_1_weeks/main_1_weeks_page_vm.dart';
 import 'package:flutter/material.dart';
@@ -57,13 +58,15 @@ class _Main1WeeksPageState extends State<Main1WeeksPage> {
       itemBuilder: (BuildContext context, int index) {
         return Material(
           child: InkWell(
-            onTap: () {},
             child: ListTile(
               title: Text(
-                  '#$index, ${___vm.shiftedWeekNumber(index)}, ${___vm.shiftedMonday(index)} - ${___vm.shiftedSunday(index)}'),
-              subtitle:
-                  Text('без отчетов: ${___vm.getNotFilledEmployeesAtWeek(index)}'),
+                  '#$index, ${___vm.shiftedWeekNumber(index)}, ${___vm.shiftedMonday(index).russianDate} - ${___vm.shiftedSunday(index).russianDate}'),
+              subtitle: Text(
+                  'без отчетов: ${___vm.getNotFilledEmployeesAtWeek(index)}'),
               trailing: const Icon(Icons.chevron_right),
+              onTap: () {
+                ___vm.onTapOnTile(___vm.shiftedMonday(index));
+              },
             ),
           ),
         );

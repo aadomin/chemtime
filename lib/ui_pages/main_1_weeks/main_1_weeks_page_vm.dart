@@ -1,4 +1,5 @@
 import 'package:chemtime/domain_features/records/records_interactor.dart';
+import 'package:chemtime/ui_pages/main_1_weeks/employees_of_week_page_di.dart';
 import 'package:dart_date/dart_date.dart';
 import 'package:chemtime/domain_features/week_services/my_datetime_extention.dart';
 import 'package:flutter/material.dart';
@@ -35,11 +36,9 @@ class Main1WeeksPageVM with ChangeNotifier {
     return 'Текущая: $monday - $sunday';
   }
 
-  String shiftedMonday(int shift) =>
-      DateTime.now().mondayBuilder(shift).russianDate;
+  DateTime shiftedMonday(int shift) => DateTime.now().mondayBuilder(shift);
 
-  String shiftedSunday(int shift) =>
-      DateTime.now().sundayBuilder(shift).russianDate;
+  DateTime shiftedSunday(int shift) => DateTime.now().sundayBuilder(shift);
 
   String shiftedWeekNumber(int shift) =>
       (DateTime.now().getWeek + shift).toString(); //TODO переход года
@@ -56,5 +55,15 @@ class Main1WeeksPageVM with ChangeNotifier {
       }
     }
     return text;
+  }
+
+  void onTapOnTile(DateTime selectedDayOfWeek) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => EmployeesOfWeekPageDI(
+          selectedDayOfWeek: selectedDayOfWeek,
+        ),
+      ),
+    );
   }
 }

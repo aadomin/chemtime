@@ -1,6 +1,5 @@
 import 'package:chemtime/my_app_and_routes_vm.dart';
 import 'package:chemtime/ui_common_things/themes.dart';
-import 'package:chemtime/ui_pages/main_1_weeks/employees_of_week_page_di.dart';
 import 'package:chemtime/ui_pages/main_scaffold/main_scaffold.dart';
 import 'package:flutter/material.dart';
 
@@ -48,7 +47,7 @@ class _MyAppAndRoutesState extends State<MyAppAndRoutes> {
       debugShowCheckedModeBanner: false,
       routes: {
         MyMainScaffold.route: (context) => const MyMainScaffold(),
-        EmployeesOfWeekPageDI.route: (context) => const EmployeesOfWeekPageDI(),
+        //EmployeesOfWeekPageDI.route: (context) => const EmployeesOfWeekPageDI(),
         //
         //
         //
