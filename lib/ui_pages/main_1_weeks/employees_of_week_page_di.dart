@@ -6,6 +6,9 @@ import 'package:provider/provider.dart';
 
 class EmployeesOfWeekPageDI extends StatelessWidget {
   const EmployeesOfWeekPageDI({super.key});
+
+  static String get route => '/weeks-employees';
+
   @override
   Widget build(BuildContext context) {
     return EmployeesOfWeekPage(

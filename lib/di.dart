@@ -18,46 +18,8 @@ class DI {
     ..initInteractor();
 
   late final reportsRepository = ReportsRepository();
-  // late final reportsInteractor = ReportsInteractor(
-  //     reportsRepository: reportsRepository,
-  //     recordsInteractor: recordsInteractor)
-  //   ..initInteractor();
-
-  // Settings
-  // Records
-  // Reports
-
-  // late final platformDetector = PlatformDetector();
-
-  // late final _settingsRepository = SettingsRepository(
-  //   settingsDataSource: SettingsDataSource(),
-  // );
-  // late final settingsInteractor = SettingsInteractor(
-  //   settingsRepository: _settingsRepository,
-  // )..init();
-
-  // late final _geoRepository = GeoRepository();
-  // late final geoInteractor = GeoInteractor(geoRepository: _geoRepository);
-
-  // late final filterInteractor = FilterInteractor(
-  //   settingsInteractor: settingsInteractor,
-  // )..init();
-
-  // late final _dioServices = DioServices();
-  // late final _placesRepository = PlaceRepository(dio: _dioServices.dio);
-  // late final placesInteractor = PlacesInteractor(
-  //   placesRepository: _placesRepository,
-  //   geoInteractor: geoInteractor,
-  //   filterInteractor: filterInteractor,
-  // )..init();
-
-  // late final _searchRepository = SearchRepository();
-  // late final searchInteractor = SearchInteractor(
-  //   searchRepository: _searchRepository,
-  //   placesInteractor: placesInteractor,
-  // );
-
-  // late final hardworkInteractor = HardworkInteractor();
-
-  // final popupManager = PopupManager();
+  late final reportsInteractor = ReportsInteractor(
+      reportsRepository: reportsRepository,
+      recordsInteractor: recordsInteractor)
+    ..initInteractor();
 }

@@ -8,6 +8,7 @@ import 'package:chemtime/domain_entities/employee_group/employee_group_entity.da
 import 'package:chemtime/domain_entities/project/project_entity.dart';
 import 'package:chemtime/domain_entities/settings/settings_entity.dart';
 import 'package:chemtime/domain_entities/work_period/work_period_entity.dart';
+import 'package:flutter/material.dart';
 
 class MockSettings {
   late final dateNow = DateTime.now();
@@ -111,10 +112,8 @@ class MockSettings {
 
   SettingsEntity loadMockSettings() {
     String r = jsonEncode(sett.toJson());
-    print(r);
+    debugPrint(r.toString());
 
-    // print(WorkPeriodEntity.fromJson(jsonDecode(r)));
-    // print(WorkPeriodEntity.fromJson(jsonDecode(r)).dateOfHire.minute);
     return sett;
   }
 }

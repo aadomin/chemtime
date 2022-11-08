@@ -36,7 +36,7 @@ class _EmployeesOfWeekPageState extends State<EmployeesOfWeekPage> {
   @override
   Widget build(BuildContext context) {
     final _rows = _buildRows();
-    debugPrint('###_rows###' + _rows.toString());
+    debugPrint('###_rows### $_rows');
 
     return Scaffold(
         appBar: AppBar(
@@ -95,10 +95,6 @@ class _EmployeesOfWeekPageState extends State<EmployeesOfWeekPage> {
                 ),
               ]),
       ];
-
-      // _employeeTile(employee.name,
-      //       ___vm.employeesAndRecords[employee] ?? <RecordEntity>[]))
-
     }
 
     return result
@@ -121,7 +117,7 @@ class _EmployeesOfWeekPageState extends State<EmployeesOfWeekPage> {
 
   Widget _recordTile(RecordEntity record) {
     return Text(
-      record.projectName.substring(0, 6) + ' - ' + record.hours.toString(),
+      '${record.projectName.substring(0, 6)} - ${record.hours}',
       textAlign: TextAlign.end,
       style: const TextStyle(
         fontSize: 11,

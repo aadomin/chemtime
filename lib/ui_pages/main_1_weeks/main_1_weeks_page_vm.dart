@@ -14,13 +14,17 @@ class Main1WeeksPageVM with ChangeNotifier {
   late List<Listenable> listenTo = []; //TODO recordsInteractor
 
   void initVM() {
-    for (var element in listenTo) element.addListener(_updatesListener);
+    for (var element in listenTo) {
+      element.addListener(_updatesListener);
+    }
   }
 
   void _updatesListener() => notifyListeners();
 
   void disposeVM() {
-    for (var element in listenTo) element.removeListener(_updatesListener);
+    for (var element in listenTo) {
+      element.removeListener(_updatesListener);
+    }
   }
 
   //

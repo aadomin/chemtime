@@ -21,13 +21,17 @@ class EmployeesOfWeekPageVM with ChangeNotifier {
   late List<Listenable> listenTo = [settingsInteractor, recordsInteractor];
 
   void initVM() {
-    for (var element in listenTo) element.addListener(_updatesListener);
+    for (var element in listenTo) {
+      element.addListener(_updatesListener);
+    }
     _loadData();
   }
 
   void _updatesListener() => notifyListeners();
   void disposeVM() {
-    for (var element in listenTo) element.removeListener(_updatesListener);
+    for (var element in listenTo) {
+      element.removeListener(_updatesListener);
+    }
   }
 
   Map<EmployeeEntity, List<RecordEntity>> employeesAndRecords = {};
@@ -46,8 +50,8 @@ class EmployeesOfWeekPageVM with ChangeNotifier {
     employeesGroupsTree = settingsInteractor
         .getTreeOfEmployeesWhoWasInTheCompanyAtWeek(currentDayOfWeek);
 
-    debugPrint('### employeesGroupsTree ###' + employeesGroupsTree.toString());
-    debugPrint('### employeesAndRecords ###' + employeesAndRecords.toString());
+    debugPrint('### employeesGroupsTree ### $employeesGroupsTree');
+    debugPrint('### employeesAndRecords ### $employeesAndRecords');
     notifyListeners();
   }
 

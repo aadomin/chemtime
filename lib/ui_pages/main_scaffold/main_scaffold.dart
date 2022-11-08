@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 class MyMainScaffold extends StatefulWidget {
   const MyMainScaffold({super.key});
 
+  static String get route => '/home';
+
   @override
   State<MyMainScaffold> createState() => _MyMainScaffoldState();
 }
