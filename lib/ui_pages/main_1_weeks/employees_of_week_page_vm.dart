@@ -1,3 +1,4 @@
+import 'package:chemtime/ui_pages/details/details_page_di.dart';
 import 'package:dart_date/dart_date.dart';
 import 'package:chemtime/domain_features/week_services/my_datetime_extention.dart';
 
@@ -51,8 +52,6 @@ class EmployeesOfWeekPageVM with ChangeNotifier {
     employeesGroupsTree = settingsInteractor
         .getTreeOfEmployeesWhoWasInTheCompanyAtWeek(selectedDayOfWeek);
 
-    debugPrint('### employeesGroupsTree ### $employeesGroupsTree');
-    debugPrint('### employeesAndRecords ### $employeesAndRecords');
     notifyListeners();
 
     // second try
@@ -74,5 +73,16 @@ class EmployeesOfWeekPageVM with ChangeNotifier {
     final ifCurrent =
         selectedDayOfWeek.getWeek == DateTime.now().getWeek ? '(текущая)' : '';
     return '${selectedDayOfWeek.getWeek}. $monday - $sunday $ifCurrent ${employeesAndRecords.length} ${employeesGroupsTree.length}';
+  }
+
+  void onEmployeeTap(EmployeeEntity employee) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => DetailsPageDI(
+          selectedDayOfWeek: selectedDayOfWeek,
+          employee: employee,
+        ),
+      ),
+    );
   }
 }

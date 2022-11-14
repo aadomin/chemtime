@@ -59,7 +59,7 @@ class RecordsInteractor with ChangeNotifier {
       EmployeeEntity employee, DateTime dayOfWeek) {
     if (!settingsInteractor.wasEmployeeInTheCompanyAtWeek(
         employee, dayOfWeek)) {
-      throw Exception('not correct employee');
+      return <RecordEntity>[];
     }
     var listOfRecords = <RecordEntity>[];
     for (final record in records) {

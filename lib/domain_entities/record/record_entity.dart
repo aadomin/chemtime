@@ -12,10 +12,11 @@ part 'record_entity.g.dart'; // !!!
 @freezed
 class RecordEntity with _$RecordEntity {
   const factory RecordEntity({
-    required String projectName,
+    required String stringShortcut,
     required String employeeName,
     required double hours,
     required DateTime firstDayOfThatWeek,
+    required DateTime timestamp,
   }) = _RecordEntity;
 
   factory RecordEntity.fromJson(Map<String, Object?> json) =>

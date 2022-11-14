@@ -15,8 +15,8 @@ class ProjectEntity with _$ProjectEntity {
     required String name, //?
     required String company, //?
     required String town, //?
-    required String stringShortCut,
-    required String numberShortCut,
+    required String stringShortcut,
+    required String numberShortcut,
     required DateTime finishDate,
   }) = _ProjectEntity;
 

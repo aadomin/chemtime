@@ -20,10 +20,11 @@ RecordEntity _$RecordEntityFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$RecordEntity {
-  String get projectName => throw _privateConstructorUsedError;
+  String get stringShortcut => throw _privateConstructorUsedError;
   String get employeeName => throw _privateConstructorUsedError;
   double get hours => throw _privateConstructorUsedError;
   DateTime get firstDayOfThatWeek => throw _privateConstructorUsedError;
+  DateTime get timestamp => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -38,10 +39,11 @@ abstract class $RecordEntityCopyWith<$Res> {
       _$RecordEntityCopyWithImpl<$Res, RecordEntity>;
   @useResult
   $Res call(
-      {String projectName,
+      {String stringShortcut,
       String employeeName,
       double hours,
-      DateTime firstDayOfThatWeek});
+      DateTime firstDayOfThatWeek,
+      DateTime timestamp});
 }
 
 /// @nodoc
@@ -57,15 +59,16 @@ class _$RecordEntityCopyWithImpl<$Res, $Val extends RecordEntity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? projectName = null,
+    Object? stringShortcut = null,
     Object? employeeName = null,
     Object? hours = null,
     Object? firstDayOfThatWeek = null,
+    Object? timestamp = null,
   }) {
     return _then(_value.copyWith(
-      projectName: null == projectName
-          ? _value.projectName
-          : projectName // ignore: cast_nullable_to_non_nullable
+      stringShortcut: null == stringShortcut
+          ? _value.stringShortcut
+          : stringShortcut // ignore: cast_nullable_to_non_nullable
               as String,
       employeeName: null == employeeName
           ? _value.employeeName
@@ -78,6 +81,10 @@ class _$RecordEntityCopyWithImpl<$Res, $Val extends RecordEntity>
       firstDayOfThatWeek: null == firstDayOfThatWeek
           ? _value.firstDayOfThatWeek
           : firstDayOfThatWeek // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      timestamp: null == timestamp
+          ? _value.timestamp
+          : timestamp // ignore: cast_nullable_to_non_nullable
               as DateTime,
     ) as $Val);
   }
@@ -92,10 +99,11 @@ abstract class _$$_RecordEntityCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String projectName,
+      {String stringShortcut,
       String employeeName,
       double hours,
-      DateTime firstDayOfThatWeek});
+      DateTime firstDayOfThatWeek,
+      DateTime timestamp});
 }
 
 /// @nodoc
@@ -109,15 +117,16 @@ class __$$_RecordEntityCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? projectName = null,
+    Object? stringShortcut = null,
     Object? employeeName = null,
     Object? hours = null,
     Object? firstDayOfThatWeek = null,
+    Object? timestamp = null,
   }) {
     return _then(_$_RecordEntity(
-      projectName: null == projectName
-          ? _value.projectName
-          : projectName // ignore: cast_nullable_to_non_nullable
+      stringShortcut: null == stringShortcut
+          ? _value.stringShortcut
+          : stringShortcut // ignore: cast_nullable_to_non_nullable
               as String,
       employeeName: null == employeeName
           ? _value.employeeName
@@ -131,6 +140,10 @@ class __$$_RecordEntityCopyWithImpl<$Res>
           ? _value.firstDayOfThatWeek
           : firstDayOfThatWeek // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      timestamp: null == timestamp
+          ? _value.timestamp
+          : timestamp // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -139,26 +152,29 @@ class __$$_RecordEntityCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_RecordEntity with DiagnosticableTreeMixin implements _RecordEntity {
   const _$_RecordEntity(
-      {required this.projectName,
+      {required this.stringShortcut,
       required this.employeeName,
       required this.hours,
-      required this.firstDayOfThatWeek});
+      required this.firstDayOfThatWeek,
+      required this.timestamp});
 
   factory _$_RecordEntity.fromJson(Map<String, dynamic> json) =>
       _$$_RecordEntityFromJson(json);
 
   @override
-  final String projectName;
+  final String stringShortcut;
   @override
   final String employeeName;
   @override
   final double hours;
   @override
   final DateTime firstDayOfThatWeek;
+  @override
+  final DateTime timestamp;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RecordEntity(projectName: $projectName, employeeName: $employeeName, hours: $hours, firstDayOfThatWeek: $firstDayOfThatWeek)';
+    return 'RecordEntity(stringShortcut: $stringShortcut, employeeName: $employeeName, hours: $hours, firstDayOfThatWeek: $firstDayOfThatWeek, timestamp: $timestamp)';
   }
 
   @override
@@ -166,10 +182,11 @@ class _$_RecordEntity with DiagnosticableTreeMixin implements _RecordEntity {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'RecordEntity'))
-      ..add(DiagnosticsProperty('projectName', projectName))
+      ..add(DiagnosticsProperty('stringShortcut', stringShortcut))
       ..add(DiagnosticsProperty('employeeName', employeeName))
       ..add(DiagnosticsProperty('hours', hours))
-      ..add(DiagnosticsProperty('firstDayOfThatWeek', firstDayOfThatWeek));
+      ..add(DiagnosticsProperty('firstDayOfThatWeek', firstDayOfThatWeek))
+      ..add(DiagnosticsProperty('timestamp', timestamp));
   }
 
   @override
@@ -177,19 +194,21 @@ class _$_RecordEntity with DiagnosticableTreeMixin implements _RecordEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_RecordEntity &&
-            (identical(other.projectName, projectName) ||
-                other.projectName == projectName) &&
+            (identical(other.stringShortcut, stringShortcut) ||
+                other.stringShortcut == stringShortcut) &&
             (identical(other.employeeName, employeeName) ||
                 other.employeeName == employeeName) &&
             (identical(other.hours, hours) || other.hours == hours) &&
             (identical(other.firstDayOfThatWeek, firstDayOfThatWeek) ||
-                other.firstDayOfThatWeek == firstDayOfThatWeek));
+                other.firstDayOfThatWeek == firstDayOfThatWeek) &&
+            (identical(other.timestamp, timestamp) ||
+                other.timestamp == timestamp));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, projectName, employeeName, hours, firstDayOfThatWeek);
+  int get hashCode => Object.hash(runtimeType, stringShortcut, employeeName,
+      hours, firstDayOfThatWeek, timestamp);
 
   @JsonKey(ignore: true)
   @override
@@ -207,22 +226,25 @@ class _$_RecordEntity with DiagnosticableTreeMixin implements _RecordEntity {
 
 abstract class _RecordEntity implements RecordEntity {
   const factory _RecordEntity(
-      {required final String projectName,
+      {required final String stringShortcut,
       required final String employeeName,
       required final double hours,
-      required final DateTime firstDayOfThatWeek}) = _$_RecordEntity;
+      required final DateTime firstDayOfThatWeek,
+      required final DateTime timestamp}) = _$_RecordEntity;
 
   factory _RecordEntity.fromJson(Map<String, dynamic> json) =
       _$_RecordEntity.fromJson;
 
   @override
-  String get projectName;
+  String get stringShortcut;
   @override
   String get employeeName;
   @override
   double get hours;
   @override
   DateTime get firstDayOfThatWeek;
+  @override
+  DateTime get timestamp;
   @override
   @JsonKey(ignore: true)
   _$$_RecordEntityCopyWith<_$_RecordEntity> get copyWith =>

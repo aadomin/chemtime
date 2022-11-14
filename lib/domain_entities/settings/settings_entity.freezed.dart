@@ -28,6 +28,7 @@ mixin _$SettingsEntity {
   bool get showFullWeekEmployeesView => throw _privateConstructorUsedError;
   bool get showFullEmployeeView => throw _privateConstructorUsedError;
   bool get showFullEmployeeWeekView => throw _privateConstructorUsedError;
+  DateTime get timestamp => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -48,7 +49,8 @@ abstract class $SettingsEntityCopyWith<$Res> {
       bool showFullWeekView,
       bool showFullWeekEmployeesView,
       bool showFullEmployeeView,
-      bool showFullEmployeeWeekView});
+      bool showFullEmployeeWeekView,
+      DateTime timestamp});
 }
 
 /// @nodoc
@@ -71,6 +73,7 @@ class _$SettingsEntityCopyWithImpl<$Res, $Val extends SettingsEntity>
     Object? showFullWeekEmployeesView = null,
     Object? showFullEmployeeView = null,
     Object? showFullEmployeeWeekView = null,
+    Object? timestamp = null,
   }) {
     return _then(_value.copyWith(
       projects: null == projects
@@ -101,6 +104,10 @@ class _$SettingsEntityCopyWithImpl<$Res, $Val extends SettingsEntity>
           ? _value.showFullEmployeeWeekView
           : showFullEmployeeWeekView // ignore: cast_nullable_to_non_nullable
               as bool,
+      timestamp: null == timestamp
+          ? _value.timestamp
+          : timestamp // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 }
@@ -120,7 +127,8 @@ abstract class _$$_SettingsEntityCopyWith<$Res>
       bool showFullWeekView,
       bool showFullWeekEmployeesView,
       bool showFullEmployeeView,
-      bool showFullEmployeeWeekView});
+      bool showFullEmployeeWeekView,
+      DateTime timestamp});
 }
 
 /// @nodoc
@@ -141,6 +149,7 @@ class __$$_SettingsEntityCopyWithImpl<$Res>
     Object? showFullWeekEmployeesView = null,
     Object? showFullEmployeeView = null,
     Object? showFullEmployeeWeekView = null,
+    Object? timestamp = null,
   }) {
     return _then(_$_SettingsEntity(
       projects: null == projects
@@ -171,6 +180,10 @@ class __$$_SettingsEntityCopyWithImpl<$Res>
           ? _value.showFullEmployeeWeekView
           : showFullEmployeeWeekView // ignore: cast_nullable_to_non_nullable
               as bool,
+      timestamp: null == timestamp
+          ? _value.timestamp
+          : timestamp // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -187,7 +200,8 @@ class _$_SettingsEntity
       required this.showFullWeekView,
       required this.showFullWeekEmployeesView,
       required this.showFullEmployeeView,
-      required this.showFullEmployeeWeekView})
+      required this.showFullEmployeeWeekView,
+      required this.timestamp})
       : _projects = projects,
         _shortcuts = shortcuts,
         _employeeGroups = employeeGroups;
@@ -226,10 +240,12 @@ class _$_SettingsEntity
   final bool showFullEmployeeView;
   @override
   final bool showFullEmployeeWeekView;
+  @override
+  final DateTime timestamp;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SettingsEntity(projects: $projects, shortcuts: $shortcuts, employeeGroups: $employeeGroups, showFullWeekView: $showFullWeekView, showFullWeekEmployeesView: $showFullWeekEmployeesView, showFullEmployeeView: $showFullEmployeeView, showFullEmployeeWeekView: $showFullEmployeeWeekView)';
+    return 'SettingsEntity(projects: $projects, shortcuts: $shortcuts, employeeGroups: $employeeGroups, showFullWeekView: $showFullWeekView, showFullWeekEmployeesView: $showFullWeekEmployeesView, showFullEmployeeView: $showFullEmployeeView, showFullEmployeeWeekView: $showFullEmployeeWeekView, timestamp: $timestamp)';
   }
 
   @override
@@ -245,7 +261,8 @@ class _$_SettingsEntity
           'showFullWeekEmployeesView', showFullWeekEmployeesView))
       ..add(DiagnosticsProperty('showFullEmployeeView', showFullEmployeeView))
       ..add(DiagnosticsProperty(
-          'showFullEmployeeWeekView', showFullEmployeeWeekView));
+          'showFullEmployeeWeekView', showFullEmployeeWeekView))
+      ..add(DiagnosticsProperty('timestamp', timestamp));
   }
 
   @override
@@ -267,7 +284,9 @@ class _$_SettingsEntity
                 other.showFullEmployeeView == showFullEmployeeView) &&
             (identical(
                     other.showFullEmployeeWeekView, showFullEmployeeWeekView) ||
-                other.showFullEmployeeWeekView == showFullEmployeeWeekView));
+                other.showFullEmployeeWeekView == showFullEmployeeWeekView) &&
+            (identical(other.timestamp, timestamp) ||
+                other.timestamp == timestamp));
   }
 
   @JsonKey(ignore: true)
@@ -280,7 +299,8 @@ class _$_SettingsEntity
       showFullWeekView,
       showFullWeekEmployeesView,
       showFullEmployeeView,
-      showFullEmployeeWeekView);
+      showFullEmployeeWeekView,
+      timestamp);
 
   @JsonKey(ignore: true)
   @override
@@ -304,7 +324,8 @@ abstract class _SettingsEntity implements SettingsEntity {
       required final bool showFullWeekView,
       required final bool showFullWeekEmployeesView,
       required final bool showFullEmployeeView,
-      required final bool showFullEmployeeWeekView}) = _$_SettingsEntity;
+      required final bool showFullEmployeeWeekView,
+      required final DateTime timestamp}) = _$_SettingsEntity;
 
   factory _SettingsEntity.fromJson(Map<String, dynamic> json) =
       _$_SettingsEntity.fromJson;
@@ -323,6 +344,8 @@ abstract class _SettingsEntity implements SettingsEntity {
   bool get showFullEmployeeView;
   @override
   bool get showFullEmployeeWeekView;
+  @override
+  DateTime get timestamp;
   @override
   @JsonKey(ignore: true)
   _$$_SettingsEntityCopyWith<_$_SettingsEntity> get copyWith =>

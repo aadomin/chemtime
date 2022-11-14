@@ -23,8 +23,8 @@ mixin _$ProjectEntity {
   String get name => throw _privateConstructorUsedError; //?
   String get company => throw _privateConstructorUsedError; //?
   String get town => throw _privateConstructorUsedError; //?
-  String get stringShortCut => throw _privateConstructorUsedError;
-  String get numberShortCut => throw _privateConstructorUsedError;
+  String get stringShortcut => throw _privateConstructorUsedError;
+  String get numberShortcut => throw _privateConstructorUsedError;
   DateTime get finishDate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,8 +43,8 @@ abstract class $ProjectEntityCopyWith<$Res> {
       {String name,
       String company,
       String town,
-      String stringShortCut,
-      String numberShortCut,
+      String stringShortcut,
+      String numberShortcut,
       DateTime finishDate});
 }
 
@@ -64,8 +64,8 @@ class _$ProjectEntityCopyWithImpl<$Res, $Val extends ProjectEntity>
     Object? name = null,
     Object? company = null,
     Object? town = null,
-    Object? stringShortCut = null,
-    Object? numberShortCut = null,
+    Object? stringShortcut = null,
+    Object? numberShortcut = null,
     Object? finishDate = null,
   }) {
     return _then(_value.copyWith(
@@ -81,13 +81,13 @@ class _$ProjectEntityCopyWithImpl<$Res, $Val extends ProjectEntity>
           ? _value.town
           : town // ignore: cast_nullable_to_non_nullable
               as String,
-      stringShortCut: null == stringShortCut
-          ? _value.stringShortCut
-          : stringShortCut // ignore: cast_nullable_to_non_nullable
+      stringShortcut: null == stringShortcut
+          ? _value.stringShortcut
+          : stringShortcut // ignore: cast_nullable_to_non_nullable
               as String,
-      numberShortCut: null == numberShortCut
-          ? _value.numberShortCut
-          : numberShortCut // ignore: cast_nullable_to_non_nullable
+      numberShortcut: null == numberShortcut
+          ? _value.numberShortcut
+          : numberShortcut // ignore: cast_nullable_to_non_nullable
               as String,
       finishDate: null == finishDate
           ? _value.finishDate
@@ -109,8 +109,8 @@ abstract class _$$_ProjectEntityCopyWith<$Res>
       {String name,
       String company,
       String town,
-      String stringShortCut,
-      String numberShortCut,
+      String stringShortcut,
+      String numberShortcut,
       DateTime finishDate});
 }
 
@@ -128,8 +128,8 @@ class __$$_ProjectEntityCopyWithImpl<$Res>
     Object? name = null,
     Object? company = null,
     Object? town = null,
-    Object? stringShortCut = null,
-    Object? numberShortCut = null,
+    Object? stringShortcut = null,
+    Object? numberShortcut = null,
     Object? finishDate = null,
   }) {
     return _then(_$_ProjectEntity(
@@ -145,13 +145,13 @@ class __$$_ProjectEntityCopyWithImpl<$Res>
           ? _value.town
           : town // ignore: cast_nullable_to_non_nullable
               as String,
-      stringShortCut: null == stringShortCut
-          ? _value.stringShortCut
-          : stringShortCut // ignore: cast_nullable_to_non_nullable
+      stringShortcut: null == stringShortcut
+          ? _value.stringShortcut
+          : stringShortcut // ignore: cast_nullable_to_non_nullable
               as String,
-      numberShortCut: null == numberShortCut
-          ? _value.numberShortCut
-          : numberShortCut // ignore: cast_nullable_to_non_nullable
+      numberShortcut: null == numberShortcut
+          ? _value.numberShortcut
+          : numberShortcut // ignore: cast_nullable_to_non_nullable
               as String,
       finishDate: null == finishDate
           ? _value.finishDate
@@ -168,8 +168,8 @@ class _$_ProjectEntity with DiagnosticableTreeMixin implements _ProjectEntity {
       {required this.name,
       required this.company,
       required this.town,
-      required this.stringShortCut,
-      required this.numberShortCut,
+      required this.stringShortcut,
+      required this.numberShortcut,
       required this.finishDate});
 
   factory _$_ProjectEntity.fromJson(Map<String, dynamic> json) =>
@@ -185,15 +185,15 @@ class _$_ProjectEntity with DiagnosticableTreeMixin implements _ProjectEntity {
   final String town;
 //?
   @override
-  final String stringShortCut;
+  final String stringShortcut;
   @override
-  final String numberShortCut;
+  final String numberShortcut;
   @override
   final DateTime finishDate;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ProjectEntity(name: $name, company: $company, town: $town, stringShortCut: $stringShortCut, numberShortCut: $numberShortCut, finishDate: $finishDate)';
+    return 'ProjectEntity(name: $name, company: $company, town: $town, stringShortcut: $stringShortcut, numberShortcut: $numberShortcut, finishDate: $finishDate)';
   }
 
   @override
@@ -204,8 +204,8 @@ class _$_ProjectEntity with DiagnosticableTreeMixin implements _ProjectEntity {
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('company', company))
       ..add(DiagnosticsProperty('town', town))
-      ..add(DiagnosticsProperty('stringShortCut', stringShortCut))
-      ..add(DiagnosticsProperty('numberShortCut', numberShortCut))
+      ..add(DiagnosticsProperty('stringShortcut', stringShortcut))
+      ..add(DiagnosticsProperty('numberShortcut', numberShortcut))
       ..add(DiagnosticsProperty('finishDate', finishDate));
   }
 
@@ -217,10 +217,10 @@ class _$_ProjectEntity with DiagnosticableTreeMixin implements _ProjectEntity {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.company, company) || other.company == company) &&
             (identical(other.town, town) || other.town == town) &&
-            (identical(other.stringShortCut, stringShortCut) ||
-                other.stringShortCut == stringShortCut) &&
-            (identical(other.numberShortCut, numberShortCut) ||
-                other.numberShortCut == numberShortCut) &&
+            (identical(other.stringShortcut, stringShortcut) ||
+                other.stringShortcut == stringShortcut) &&
+            (identical(other.numberShortcut, numberShortcut) ||
+                other.numberShortcut == numberShortcut) &&
             (identical(other.finishDate, finishDate) ||
                 other.finishDate == finishDate));
   }
@@ -228,7 +228,7 @@ class _$_ProjectEntity with DiagnosticableTreeMixin implements _ProjectEntity {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, name, company, town,
-      stringShortCut, numberShortCut, finishDate);
+      stringShortcut, numberShortcut, finishDate);
 
   @JsonKey(ignore: true)
   @override
@@ -249,8 +249,8 @@ abstract class _ProjectEntity implements ProjectEntity {
       {required final String name,
       required final String company,
       required final String town,
-      required final String stringShortCut,
-      required final String numberShortCut,
+      required final String stringShortcut,
+      required final String numberShortcut,
       required final DateTime finishDate}) = _$_ProjectEntity;
 
   factory _ProjectEntity.fromJson(Map<String, dynamic> json) =
@@ -263,9 +263,9 @@ abstract class _ProjectEntity implements ProjectEntity {
   @override //?
   String get town;
   @override //?
-  String get stringShortCut;
+  String get stringShortcut;
   @override
-  String get numberShortCut;
+  String get numberShortcut;
   @override
   DateTime get finishDate;
   @override

@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class SettingsInteractor with ChangeNotifier {
   SettingsInteractor({required this.settingsRepository});
 
-  late final SettingsRepository settingsRepository;
+  final SettingsRepository settingsRepository;
 
   //
 
@@ -18,6 +18,7 @@ class SettingsInteractor with ChangeNotifier {
 
   void initInteractor() {
     settings = settingsRepository.loadSetting();
+    //TODO async
   }
 
   Future<SettingsEntity> loadSettingsFromFile(String pathToFile) {
@@ -26,17 +27,6 @@ class SettingsInteractor with ChangeNotifier {
 
   Future<void> saveSettingsToFile(SettingsEntity settings) {
     throw 'not implemented';
-  }
-
-  //
-
-  ProjectEntity? getProject(String projectName) {
-    for (final project in settings.projects) {
-      if (project.name == projectName) {
-        return project;
-      }
-    }
-    return null; // not found
   }
 
   List<ProjectEntity> findProjects(String searchText) {

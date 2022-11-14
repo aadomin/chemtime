@@ -1,4 +1,4 @@
-import 'dart:convert';
+// import 'dart:convert';
 import 'dart:math' as math;
 
 import 'package:dart_date/dart_date.dart';
@@ -8,7 +8,7 @@ import 'package:chemtime/domain_entities/employee_group/employee_group_entity.da
 import 'package:chemtime/domain_entities/project/project_entity.dart';
 import 'package:chemtime/domain_entities/settings/settings_entity.dart';
 import 'package:chemtime/domain_entities/work_period/work_period_entity.dart';
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
 class MockSettings {
   late final dateNow = DateTime.now();
@@ -23,32 +23,48 @@ class MockSettings {
       name: 'Пылеуловитель на трубопроводе природного газа',
       company: 'ПМУ',
       town: 'Пермь',
-      stringShortCut: 'пыл',
-      numberShortCut: '321',
+      stringShortcut: 'пыл',
+      numberShortcut: '321',
       finishDate: dateProjectFinish,
     ),
     ProjectEntity(
       name: 'Малый ядерный реактор. Техническое перевооружение',
       company: 'Акрон',
       town: 'Дорогобуж',
-      stringShortCut: 'ядр',
-      numberShortCut: '322',
+      stringShortcut: 'ядр',
+      numberShortcut: '322',
       finishDate: dateProjectFinish,
     ),
     ProjectEntity(
       name: 'Реконструкция ракетоносителя с установкой турбины',
       company: 'Минудобрения',
       town: 'Россошь',
-      stringShortCut: 'рак',
-      numberShortCut: '323',
+      stringShortcut: 'рак',
+      numberShortcut: '323',
       finishDate: dateProjectFinish,
     ),
     ProjectEntity(
       name: 'Строительство детского сада. Авторский надзор',
       company: 'НевСтрой',
       town: 'Невинномысск',
-      stringShortCut: 'сад_ан',
-      numberShortCut: '323',
+      stringShortcut: 'сад_ан',
+      numberShortcut: '323',
+      finishDate: dateProjectFinish,
+    ),
+    ProjectEntity(
+      name: 'Сеть спутников в околоземной орбите',
+      company: 'Тесла',
+      town: 'Лос-Анжелес',
+      stringShortcut: 'тес',
+      numberShortcut: '324',
+      finishDate: dateProjectFinish,
+    ),
+    ProjectEntity(
+      name: 'Транссибирская магистраль. Проектная документация',
+      company: 'ГосДорога',
+      town: 'Москва',
+      stringShortcut: 'тра',
+      numberShortcut: '326',
       finishDate: dateProjectFinish,
     )
   ];
@@ -78,7 +94,13 @@ class MockSettings {
     EmployeeEntity(
         name: 'Отпуск', sortingFactor: 700, periodsOfWork: [period1, period2]),
     EmployeeEntity(
-        name: 'Принят А.', sortingFactor: 800, periodsOfWork: [period3]),
+        name: 'Бийонсе И.', sortingFactor: 800, periodsOfWork: [periodLong]),
+    EmployeeEntity(
+        name: 'Сэм Смит', sortingFactor: 900, periodsOfWork: [periodLong]),
+    EmployeeEntity(
+        name: 'Кобзон Иосиф', sortingFactor: 950, periodsOfWork: [periodLong]),
+    EmployeeEntity(
+        name: 'Мистер Фримен', sortingFactor: 990, periodsOfWork: [periodLong]),
   ];
 
   late final group1 = EmployeeGroupEntity(
@@ -96,23 +118,28 @@ class MockSettings {
     employees: [employees[4], employees[5], employees[6], employees[7]],
     sortingFactor: 300,
   );
+  late final group4 = EmployeeGroupEntity(
+    groupName: 'Э',
+    employees: [employees[8], employees[9], employees[10]],
+    sortingFactor: 400,
+  );
 
   late final sett = SettingsEntity(
     projects: projects,
     shortcuts: [
       for (var i = 0; i < 15; i++)
-        projects[math.Random().nextInt(projects.length)].stringShortCut,
+        projects[math.Random().nextInt(projects.length)].stringShortcut,
     ],
-    employeeGroups: [group1, group2, group3],
+    employeeGroups: [group1, group2, group3, group4],
     showFullWeekView: true,
     showFullWeekEmployeesView: true,
     showFullEmployeeView: true,
     showFullEmployeeWeekView: true,
+    timestamp: DateTime.now(),
   );
 
   SettingsEntity loadMockSettings() {
-    String r = jsonEncode(sett.toJson());
-    debugPrint(r.toString());
+    // String r = jsonEncode(sett.toJson());
 
     return sett;
   }

@@ -40,6 +40,8 @@ dependencies:
 
   dart_date: ^1.1.1
   
+  declarative_animated_list: ^0.1.1
+  
   dio: ^4.0.0
 
   infinite_listview: ^1.1.0

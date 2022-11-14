@@ -1,3 +1,4 @@
+import 'package:dart_date/dart_date.dart';
 import 'package:chemtime/domain_features/week_services/my_datetime_extention.dart';
 import 'package:infinite_listview/infinite_listview.dart';
 import 'package:chemtime/ui_pages/main_1_weeks/main_1_weeks_page_vm.dart';
@@ -56,13 +57,36 @@ class _Main1WeeksPageState extends State<Main1WeeksPage> {
       separatorBuilder: (BuildContext context, int index) =>
           const Divider(height: 2.0),
       itemBuilder: (BuildContext context, int index) {
+        var text =
+            '${___vm.shiftedMonday(index).russianDate} - ${___vm.shiftedSunday(index).russianDate}';
+        text += ', #$index, ${___vm.shiftedWeekNumber(index)}';
+        var isThatCurrentWeek =
+            ___vm.shiftedMonday(index).getWeek == DateTime.now().getWeek;
+        var isThatPreviousWeek =
+            ___vm.shiftedMonday(index).getWeek == DateTime.now().getWeek - 1;
+        var isThatNextWeek =
+            ___vm.shiftedMonday(index).getWeek == DateTime.now().getWeek + 1;
+        var isThatWeekInFuture =
+            ___vm.shiftedMonday(index) > DateTime.now().mondayOfThisWeek;
+
+        if (isThatCurrentWeek) text += ' (текущая)';
+        if (isThatPreviousWeek) text += ' (предыдущая)';
+        if (isThatNextWeek) text += ' (следующая)';
+
         return Material(
           child: InkWell(
             child: ListTile(
-              title: Text(
-                  '#$index, ${___vm.shiftedWeekNumber(index)}, ${___vm.shiftedMonday(index).russianDate} - ${___vm.shiftedSunday(index).russianDate}'),
-              subtitle: Text(
-                  'без отчетов: ${___vm.getNotFilledEmployeesAtWeek(index)}'),
+              title: Text(text,
+                  style: isThatCurrentWeek
+                      ? const TextStyle(
+                          color: Colors.blueAccent,
+                          fontWeight: FontWeight.bold,
+                        )
+                      : const TextStyle()),
+              subtitle: isThatWeekInFuture
+                  ? const SizedBox.shrink()
+                  : Text(
+                      'без отчетов: ${___vm.getNotFilledEmployeesAtWeek(index)}'),
               trailing: const Icon(Icons.chevron_right),
               onTap: () {
                 ___vm.onTapOnTile(___vm.shiftedMonday(index));

@@ -20,6 +20,7 @@ _$_SettingsEntity _$$_SettingsEntityFromJson(Map<String, dynamic> json) =>
       showFullWeekEmployeesView: json['showFullWeekEmployeesView'] as bool,
       showFullEmployeeView: json['showFullEmployeeView'] as bool,
       showFullEmployeeWeekView: json['showFullEmployeeWeekView'] as bool,
+      timestamp: DateTime.parse(json['timestamp'] as String),
     );
 
 Map<String, dynamic> _$$_SettingsEntityToJson(_$_SettingsEntity instance) =>
@@ -31,4 +32,5 @@ Map<String, dynamic> _$$_SettingsEntityToJson(_$_SettingsEntity instance) =>
       'showFullWeekEmployeesView': instance.showFullWeekEmployeesView,
       'showFullEmployeeView': instance.showFullEmployeeView,
       'showFullEmployeeWeekView': instance.showFullEmployeeWeekView,
+      'timestamp': instance.timestamp.toIso8601String(),
     };

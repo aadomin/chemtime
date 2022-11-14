@@ -21,6 +21,7 @@ class SettingsEntity with _$SettingsEntity {
     required bool showFullWeekEmployeesView,
     required bool showFullEmployeeView,
     required bool showFullEmployeeWeekView,
+    required DateTime timestamp,
   }) = _SettingsEntity;
 
   factory SettingsEntity.fromJson(Map<String, Object?> json) =>

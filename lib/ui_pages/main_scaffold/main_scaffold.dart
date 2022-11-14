@@ -1,5 +1,6 @@
 import 'package:chemtime/ui_pages/main_1_weeks/employees_of_week_page_di.dart';
 import 'package:chemtime/ui_pages/main_1_weeks/main_1_weeks_page_di.dart';
+import 'package:chemtime/ui_pages/select_hours/select_hours_page_di.dart';
 import 'package:flutter/material.dart';
 
 class MyMainScaffold extends StatefulWidget {
@@ -23,7 +24,10 @@ class _MyMainScaffoldState extends State<MyMainScaffold> {
               selectedDayOfWeek: DateTime.now(),
             )).call(),
         (() => const Center()).call(),
-        (() => const Center()).call(),
+        (() => const SelectHoursPageDI(
+              selectedHours: 4,
+              stringShortcut: 'укр',
+            )).call(),
         (() => const Center()).call(),
       ][selectedPage],
       bottomNavigationBar: BottomNavigationBar(
