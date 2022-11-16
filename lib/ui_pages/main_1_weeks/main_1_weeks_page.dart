@@ -39,7 +39,18 @@ class _Main1WeeksPageState extends State<Main1WeeksPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(___vm.title()),
+        title: Column(
+          children: [
+            const Text('Данные по неделям'),
+            Padding(
+              padding: const EdgeInsets.only(top: 3),
+              child: Text(
+                ___vm.title(),
+                style: const TextStyle(fontSize: 12),
+              ),
+            ),
+          ],
+        ),
       ),
       body: _buildList(),
     );

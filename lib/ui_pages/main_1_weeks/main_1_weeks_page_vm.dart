@@ -33,7 +33,7 @@ class Main1WeeksPageVM with ChangeNotifier {
   String title() {
     final monday = DateTime.now().mondayOfThisWeek.russianDate;
     final sunday = DateTime.now().sundayOfThisWeek.russianDate;
-    return 'Текущая: $monday - $sunday';
+    return 'Текущая неделя: $monday - $sunday';
   }
 
   DateTime shiftedMonday(int shift) => DateTime.now().mondayBuilder(shift);

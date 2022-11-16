@@ -44,7 +44,17 @@ class _DetailsPageState extends State<DetailsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Column(
-          children: [Text(___vm.title1), Text(___vm.title2)],
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(___vm.title1),
+            Padding(
+              padding: const EdgeInsets.only(top: 3),
+              child: Text(
+                ___vm.title2,
+                style: const TextStyle(fontSize: 12),
+              ),
+            ),
+          ],
         ),
         actions: [
           IconButton(
@@ -166,57 +176,88 @@ class _DetailsPageState extends State<DetailsPage> {
   }
 
   Widget _buildRecordTile(RecordEntity record) {
-    return SizedBox(
-      height: kHeightOfElements.toDouble(),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        color: const Color(0xFFDDDDDD),
-        child: Row(
-          children: [
-            InkWell(
-              onTap: () => ___vm.onTapOnRecordHours(record),
-              child: SizedBox(
-                height: 40,
-                width: 40,
-                child: Center(
-                  child: Text('${record.hours}ч'),
-                ),
-              ),
-            ),
-            Expanded(
-              child: Row(
-                children: [
-                  Text(
-                    record.stringShortcut,
-                    maxLines: 1,
-                  ),
-                  const SizedBox(width: 30),
-                  Expanded(
-                    child: Text(
-                      //TODO тут была ошибка
-                      ___vm.recordsProjects[record.stringShortcut] != null
-                          ? ___vm.recordsProjects[record.stringShortcut]!.name
-                          : '',
-                      overflow: TextOverflow.fade,
-                      maxLines: 2,
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: SizedBox(
+        height: kHeightOfElements.toDouble(),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          color: const Color.fromARGB(65, 211, 211, 211),
+          child: Row(
+            children: [
+              //
+              // часы
+              //
+              InkWell(
+                onTap: () => ___vm.onTapOnRecordHours(record),
+                child: SizedBox(
+                  height: 48,
+                  child: Center(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: ColoredBox(
+                        color: const Color.fromARGB(55, 204, 203, 203),
+                        child: SizedBox(
+                          height: 36,
+                          width: 60,
+                          child: Center(
+                            child: Text('${record.hours}ч'),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
-            InkWell(
-              onTap: () => ___vm.onTapOnRemoveRecord(record),
-              child: const SizedBox(
-                height: 40,
-                width: 40,
+              const SizedBox(width: 10),
+              //
+              // краткий код
+              //
+              SizedBox(
+                width: 45,
                 child: Center(
-                    child: Icon(
-                  Icons.remove_circle_outline,
-                  size: 25,
-                )),
+                  child: FittedBox(
+                    child: Text(
+                      record.stringShortcut,
+                      maxLines: 1,
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ],
+              const SizedBox(width: 10),
+
+              //
+              // Название
+              //
+              Expanded(
+                child: Text(
+                  //TODO тут была ошибка
+                  ___vm.recordsProjects[record.stringShortcut] != null
+                      ? ___vm.recordsProjects[record.stringShortcut]!.name
+                      : '',
+                  overflow: TextOverflow.fade,
+                  maxLines: 2,
+                ),
+              ),
+
+              //
+              // Удалить
+              //
+              InkWell(
+                onTap: () => ___vm.onTapOnRemoveRecord(record),
+                child: const SizedBox(
+                  height: 30,
+                  width: 30,
+                  child: Center(
+                    child: Icon(
+                      Icons.remove_circle_outline,
+                      size: 18,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -233,8 +274,9 @@ class _DetailsPageState extends State<DetailsPage> {
               onTap: () {},
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                    border: Border.all(color: const Color(0xFFEEEEEE)),
-                    borderRadius: BorderRadius.circular(3)),
+                  border: Border.all(color: const Color(0xFFEEEEEE)),
+                  borderRadius: BorderRadius.circular(3),
+                ),
                 child: SizedBox(
                   height: kHeightOfShortcuts.toDouble(),
                   width: MediaQuery.of(context).size.width / 5 - 4,

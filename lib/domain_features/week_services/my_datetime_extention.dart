@@ -61,14 +61,41 @@ extension Date on DateTime {
     return result;
   }
 
-  bool get isThisWeekCurrent {
-    return DateTime(year, minute, second).getWeek == DateTime.now().getWeek;
-  }
+  bool get isThisWeekCurrent =>
+      DateTime(year, month, day).veryStartOfThisWeek ==
+      DateTime.now().veryStartOfThisWeek;
+
+  bool get isThisWeekPrevious =>
+      DateTime(year, month, day + 7).veryStartOfThisWeek ==
+      DateTime.now().veryStartOfThisWeek;
+
+  bool get isThisWeekNext =>
+      DateTime(year, month, day - 7).veryStartOfThisWeek ==
+      DateTime.now().veryStartOfThisWeek;
 
   String get russianDate {
     final sDay = day.toString().length == 2 ? day.toString() : '0$day';
     final sMonth = month.toString().length == 2 ? month.toString() : '0$month';
     final sYear = year.toString().substring(2, 4);
     return '$sDay.$sMonth.$sYear'; //TODO 2 знака
+  }
+
+  String get commentAboutWeek {
+    final dayOfWeek = DateTime(year, month, day);
+    final difference = (dayOfWeek.veryStartOfThisWeek
+                .differenceInDays(DateTime.now().veryStartOfThisWeek) /
+            7)
+        .round();
+    final stringDifference =
+        (difference > 0) ? '+$differenceя' : '$differenceя';
+    if (dayOfWeek.isThisWeekCurrent) {
+      return '(текущая неделя)';
+    } else if (dayOfWeek.isThisWeekNext) {
+      return '(cледующая неделя)';
+    } else if (dayOfWeek.isThisWeekPrevious) {
+      return '(предыдущая неделя)';
+    } else {
+      return '($stringDifference неделя)';
+    }
   }
 }

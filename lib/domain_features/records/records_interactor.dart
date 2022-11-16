@@ -70,4 +70,6 @@ class RecordsInteractor with ChangeNotifier {
     }
     return listOfRecords;
   }
+
+  //TODO сеттеры с проверкой авторизации пользователя!
 }

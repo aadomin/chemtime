@@ -66,7 +66,7 @@ class DetailsPageVM with ChangeNotifier {
 
   String get title1 => '${employee.name}';
   String get title2 =>
-      '${selectedDayOfWeek.mondayOfThisWeek.russianDate} ${selectedDayOfWeek.getWeek == DateTime.now().getWeek ? '(текущая)' : ''}';
+      '${selectedDayOfWeek.mondayOfThisWeek.russianDate} - ${selectedDayOfWeek.sundayOfThisWeek.russianDate} ${selectedDayOfWeek.commentAboutWeek}';
 
   bool get wasEmployeeInTheCompanyAtWeek => settingsInteractor
       .wasEmployeeInTheCompanyAtWeek(employee, selectedDayOfWeek);
@@ -110,26 +110,20 @@ class DetailsPageVM with ChangeNotifier {
   }
 
   void onPageViewChanged(int page) {
-    debugPrint(
-        '4. page - $page, pageViewController.page = ${pageViewController.page}');
-    Future.delayed(const Duration(milliseconds: 400), () {
-      if (page == 0) {
-        debugPrint(
-            '5. page - $page, pageViewController.page = ${pageViewController.page}');
-        selectedDayOfWeek = selectedDayOfWeek.previousWeek;
-        _loadData();
-        pageViewController.jumpToPage(1);
-      }
-      if (page == 2) {
-        debugPrint(
-            '5. page - $page, pageViewController.page = ${pageViewController.page}');
-        selectedDayOfWeek = selectedDayOfWeek.nextWeek;
-        _loadData();
-        pageViewController.jumpToPage(1);
-      }
-
-      debugPrint(
-          '6. page - $page, pageViewController.page = ${pageViewController.page}');
-    });
+    Future.delayed(
+      const Duration(milliseconds: 400),
+      () {
+        if (page == 0) {
+          selectedDayOfWeek = selectedDayOfWeek.previousWeek;
+          _loadData();
+          pageViewController.jumpToPage(1);
+        }
+        if (page == 2) {
+          selectedDayOfWeek = selectedDayOfWeek.nextWeek;
+          _loadData();
+          pageViewController.jumpToPage(1);
+        }
+      },
+    );
   }
 }

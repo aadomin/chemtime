@@ -43,9 +43,13 @@ class _EmployeesOfWeekPageState extends State<EmployeesOfWeekPage> {
       appBar: AppBar(
         title: FittedBox(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(___vm.title1),
-              Text(___vm.title2),
+              Text(
+                ___vm.title2,
+                style: const TextStyle(fontSize: 12),
+              ),
             ],
           ),
         ),

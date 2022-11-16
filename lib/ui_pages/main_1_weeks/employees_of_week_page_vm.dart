@@ -58,6 +58,15 @@ class EmployeesOfWeekPageVM with ChangeNotifier {
     // second try
   }
 
+  String get title1 {
+    final monday = selectedDayOfWeek.mondayOfThisWeek.russianDate;
+    final sunday = selectedDayOfWeek.sundayOfThisWeek.russianDate;
+    return '$monday - $sunday';
+  }
+
+  String get title2 =>
+      'Неделя №${selectedDayOfWeek.getWeek}, ${selectedDayOfWeek.commentAboutWeek}';
+
   void onPreviousWeek() {
     selectedDayOfWeek = selectedDayOfWeek.add(const Duration(days: -7));
     _loadData();
@@ -66,18 +75,6 @@ class EmployeesOfWeekPageVM with ChangeNotifier {
   void onNextWeek() {
     selectedDayOfWeek = selectedDayOfWeek.add(const Duration(days: 7));
     _loadData();
-  }
-
-  String get title1 {
-    final monday = selectedDayOfWeek.mondayOfThisWeek.russianDate;
-    final sunday = selectedDayOfWeek.sundayOfThisWeek.russianDate;
-    return '${selectedDayOfWeek.getWeek}. $monday - $sunday';
-  }
-
-  String get title2 {
-    final ifCurrent =
-        selectedDayOfWeek.getWeek == DateTime.now().getWeek ? '(текущая)' : '';
-    return '$ifCurrent ${employeesAndRecords.length} ${employeesGroupsTree.length}';
   }
 
   void onEmployeeTap(EmployeeEntity employee) {
@@ -92,25 +89,18 @@ class EmployeesOfWeekPageVM with ChangeNotifier {
   }
 
   void onHorizontalScrollPage(int page) {
-    debugPrint(
-        '1. page - $page, pageViewController.page = ${pageViewController.page}');
-    Future.delayed(const Duration(milliseconds: 400), () {
-      if (page == 0) {
-        onPreviousWeek();
-        debugPrint(
-            '2. page - $page, pageViewController.page = ${pageViewController.page}');
-        pageViewController.jumpToPage(1);
-      }
-
-      if (page == 2) {
-        onNextWeek();
-        debugPrint(
-            '2. page - $page, pageViewController.page = ${pageViewController.page}');
-        pageViewController.jumpToPage(1);
-      }
-
-      debugPrint(
-          '3. page - $page, pageViewController.page = ${pageViewController.page}');
-    });
+    Future.delayed(
+      const Duration(milliseconds: 400),
+      () {
+        if (page == 0) {
+          onPreviousWeek();
+          pageViewController.jumpToPage(1);
+        }
+        if (page == 2) {
+          onNextWeek();
+          pageViewController.jumpToPage(1);
+        }
+      },
+    );
   }
 }

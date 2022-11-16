@@ -1,5 +1,4 @@
 // ignore: unused_import
-import 'package:chemtime/domain_features/week_services/week_services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:dart_date/dart_date.dart';
