@@ -52,7 +52,7 @@ class MockSettings {
       finishDate: dateProjectFinish,
     ),
     ProjectEntity(
-      name: 'Сеть спутников в околоземной орбите',
+      name: 'ПД на ЗАГС',
       company: 'Тесла',
       town: 'Лос-Анжелес',
       stringShortcut: 'тес',

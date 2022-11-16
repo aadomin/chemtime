@@ -1,3 +1,4 @@
+import 'package:chemtime/domain_entities/project/project_entity.dart';
 import 'package:chemtime/domain_entities/record/record_entity.dart';
 import 'package:chemtime/ui_pages/details/details_page_vm.dart';
 import 'package:declarative_animated_list/declarative_animated_list.dart';
@@ -42,7 +43,9 @@ class _DetailsPageState extends State<DetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(___vm.title),
+        title: Column(
+          children: [Text(___vm.title1), Text(___vm.title2)],
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.arrow_circle_left_outlined),
@@ -54,31 +57,41 @@ class _DetailsPageState extends State<DetailsPage> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        //TODO изменить на скролл
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const _SmallTitle('На прошлой неделе было'),
-              _copyYesterdayBlock(),
-              const Padding(
-                padding: EdgeInsets.only(top: 8),
-                child: _SmallTitle('Отчеты за эту неделю'),
-              ),
-              _recordsList(),
-              const Padding(
-                padding: EdgeInsets.only(top: 16),
-                child: _SmallTitle('Быстрый доступ и все проекты'),
-              ),
-              _shortcutsList(),
-              _projectsList(),
-            ],
-          ),
-        ),
+      body: PageView(
+        controller: ___vm.pageViewController,
+        onPageChanged: ___vm.onPageViewChanged,
+        children: [
+          const Center(child: CircularProgressIndicator()),
+          ___vm.wasEmployeeInTheCompanyAtWeek
+              ? SingleChildScrollView(
+                  //TODO изменить на скролл
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const _SmallTitle('На прошлой неделе было'),
+                        _copyYesterdayBlock(),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 8),
+                          child: _SmallTitle('Отчеты за эту неделю'),
+                        ),
+                        _recordsList(),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 16),
+                          child: _SmallTitle('Быстрый доступ и все проекты'),
+                        ),
+                        _shortcutsList(),
+                        _projectsList(),
+                      ],
+                    ),
+                  ),
+                )
+              : const Center(child: Text('на этой неделе он(а) не работал(а)')),
+          const Center(child: CircularProgressIndicator()),
+        ],
       ),
     );
   }
@@ -178,10 +191,15 @@ class _DetailsPageState extends State<DetailsPage> {
                     maxLines: 1,
                   ),
                   const SizedBox(width: 30),
-                  Text(
-                    ___vm.recordsProjects[record.stringShortcut]!.name,
-                    overflow: TextOverflow.fade,
-                    maxLines: 2,
+                  Expanded(
+                    child: Text(
+                      //TODO тут была ошибка
+                      ___vm.recordsProjects[record.stringShortcut] != null
+                          ? ___vm.recordsProjects[record.stringShortcut]!.name
+                          : '',
+                      overflow: TextOverflow.fade,
+                      maxLines: 2,
+                    ),
                   ),
                 ],
               ),
@@ -205,8 +223,9 @@ class _DetailsPageState extends State<DetailsPage> {
   }
 
   Widget _shortcutsList() {
+    var kHeightOfShortcuts = 60;
     return SizedBox(
-      height: kHeightOfElements * 3,
+      height: kHeightOfShortcuts * 3,
       child: Wrap(
         children: [
           for (final item in ___vm.shortcutsList)
@@ -217,7 +236,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     border: Border.all(color: const Color(0xFFEEEEEE)),
                     borderRadius: BorderRadius.circular(3)),
                 child: SizedBox(
-                  height: kHeightOfElements.toDouble(),
+                  height: kHeightOfShortcuts.toDouble(),
                   width: MediaQuery.of(context).size.width / 5 - 4,
                   child: Center(
                     child: Text(item),
@@ -252,27 +271,19 @@ class _DetailsPageState extends State<DetailsPage> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(0, 10, 0, 50),
-          child: Column(
-            children: [
-              for (final project in ___vm.allProjects)
-                OutlinedButton(
-                  onPressed: () {},
-                  child: SizedBox(
-                    height: 32,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(project.name,
-                            style: const TextStyle(fontSize: 10)),
-                        const Icon(Icons.arrow_upward_rounded, size: 15)
-                      ],
-                    ),
-                  ),
-                )
-            ],
+          padding: const EdgeInsets.fromLTRB(0, 8, 0, 50),
+          child: SizedBox(
+            height: 32.0 * ___vm.allProjects.length.toDouble(),
+            child: ListView.builder(
+              itemCount: ___vm.allProjects.length,
+              itemBuilder: ((context, index) {
+                return _ProjectTile(
+                  project: ___vm.allProjects[index],
+                );
+              }),
+            ),
           ),
-        )
+        ),
       ],
     );
   }
@@ -289,6 +300,45 @@ class _SmallTitle extends StatelessWidget {
         child: Text(
           title,
           style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
+}
+
+class _ProjectTile extends StatelessWidget {
+  const _ProjectTile({required this.project, super.key});
+  final ProjectEntity project;
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton(
+      onPressed: () {},
+      child: SizedBox(
+        height: 32,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Text('${project.numberShortcut}.  ${project.name}',
+                  maxLines: 2,
+                  overflow: TextOverflow.fade,
+                  style: const TextStyle(fontSize: 10)),
+            ),
+            SizedBox(
+              height: 32,
+              width: 32,
+              child: Center(
+                child: FittedBox(
+                  child: Text(
+                    project.stringShortcut,
+                    style: const TextStyle(fontSize: 9),
+                  ),
+                ),
+              ),
+            ),
+            const Icon(Icons.arrow_upward_rounded, size: 15)
+          ],
         ),
       ),
     );

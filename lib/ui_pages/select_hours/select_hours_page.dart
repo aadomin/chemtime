@@ -76,7 +76,7 @@ class _SelectHoursPageState extends State<SelectHoursPage> {
           ),
           const SizedBox(height: 8, width: 8),
           Wrap(alignment: WrapAlignment.center, children: [
-            for (int i = 1; i < 41; i++)
+            for (int i = 1; i < 61; i++)
               _buttonHour(
                   hour: i,
                   onTap: () {

@@ -29,6 +29,7 @@ class DetailsPageVM with ChangeNotifier {
   late Map<String, ProjectEntity> recordsProjects; //ТУТВОПРОС
 
   TextEditingController projectFilterTextController = TextEditingController();
+  PageController pageViewController = PageController(initialPage: 1);
 
   late List<Listenable> listenTo = [recordsInteractor, settingsInteractor];
   void initVM() {
@@ -37,19 +38,6 @@ class DetailsPageVM with ChangeNotifier {
     }
     _loadData();
     notifyListeners();
-    //TODO del this
-    // Future.delayed(
-    //   const Duration(microseconds: 1),
-    //   () {
-    //     ScaffoldMessenger.of(context).showSnackBar(
-    //       SnackBar(
-    //         content: Text(
-    //             'w${MediaQuery.of(context).size.width} h${MediaQuery.of(context).size.height}'),
-    //       ),
-    //     );
-    //   },
-    // );
-    //TODO del this
   }
 
   void _updatesListener() => notifyListeners();
@@ -76,22 +64,16 @@ class DetailsPageVM with ChangeNotifier {
     notifyListeners();
   }
 
-  String get title =>
-      '${employee.name} от ${selectedDayOfWeek.mondayOfThisWeek.russianDate}';
+  String get title1 => '${employee.name}';
+  String get title2 =>
+      '${selectedDayOfWeek.mondayOfThisWeek.russianDate} ${selectedDayOfWeek.getWeek == DateTime.now().getWeek ? '(текущая)' : ''}';
+
+  bool get wasEmployeeInTheCompanyAtWeek => settingsInteractor
+      .wasEmployeeInTheCompanyAtWeek(employee, selectedDayOfWeek);
 
   List<String> get shortcutsList => settingsInteractor.settings.shortcuts;
 
   List<ProjectEntity> get allProjects => settingsInteractor.settings.projects;
-
-  void onPreviousWeek() {
-    selectedDayOfWeek = selectedDayOfWeek.previousWeek;
-    _loadData();
-  }
-
-  void onNextWeek() {
-    selectedDayOfWeek = selectedDayOfWeek.nextWeek;
-    _loadData();
-  }
 
   Future<void> onTapOnRecordHours(RecordEntity record) async {
     double selectedHours =
@@ -113,5 +95,41 @@ class DetailsPageVM with ChangeNotifier {
     records.remove(record);
     notifyListeners();
     //TODO исправить потому что удалять в интеракторе.
+  }
+
+  //
+
+  void onPreviousWeek() {
+    selectedDayOfWeek = selectedDayOfWeek.previousWeek;
+    _loadData();
+  }
+
+  void onNextWeek() {
+    selectedDayOfWeek = selectedDayOfWeek.nextWeek;
+    _loadData();
+  }
+
+  void onPageViewChanged(int page) {
+    debugPrint(
+        '4. page - $page, pageViewController.page = ${pageViewController.page}');
+    Future.delayed(const Duration(milliseconds: 400), () {
+      if (page == 0) {
+        debugPrint(
+            '5. page - $page, pageViewController.page = ${pageViewController.page}');
+        selectedDayOfWeek = selectedDayOfWeek.previousWeek;
+        _loadData();
+        pageViewController.jumpToPage(1);
+      }
+      if (page == 2) {
+        debugPrint(
+            '5. page - $page, pageViewController.page = ${pageViewController.page}');
+        selectedDayOfWeek = selectedDayOfWeek.nextWeek;
+        _loadData();
+        pageViewController.jumpToPage(1);
+      }
+
+      debugPrint(
+          '6. page - $page, pageViewController.page = ${pageViewController.page}');
+    });
   }
 }

@@ -42,7 +42,12 @@ class _EmployeesOfWeekPageState extends State<EmployeesOfWeekPage> {
     return Scaffold(
       appBar: AppBar(
         title: FittedBox(
-          child: Text(___vm.title),
+          child: Column(
+            children: [
+              Text(___vm.title1),
+              Text(___vm.title2),
+            ],
+          ),
         ),
         actions: [
           IconButton(
@@ -55,13 +60,21 @@ class _EmployeesOfWeekPageState extends State<EmployeesOfWeekPage> {
           ),
         ],
       ),
-      body: ListView.separated(
-          itemBuilder: (context, index) {
-            return _rows[index];
-          },
-          separatorBuilder: (_, __) => const Divider(height: 2.0),
-          itemCount: ___vm.employeesGroupsTree.length +
-              ___vm.employeesAndRecords.length),
+      body: PageView(
+        controller: ___vm.pageViewController,
+        onPageChanged: ___vm.onHorizontalScrollPage,
+        children: [
+          const Center(child: CircularProgressIndicator()),
+          ListView.separated(
+              itemBuilder: (context, index) {
+                return _rows[index];
+              },
+              separatorBuilder: (_, __) => const Divider(height: 2.0),
+              itemCount: ___vm.employeesGroupsTree.length +
+                  ___vm.employeesAndRecords.length),
+          const Center(child: CircularProgressIndicator()),
+        ],
+      ),
     );
   }
 

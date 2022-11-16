@@ -19,6 +19,20 @@ class SelectHoursPageVM with ChangeNotifier {
     }
     textController.text = selectedHours.toString();
     notifyListeners();
+
+    //TODO del this
+    // Future.delayed(
+    //   const Duration(microseconds: 1),
+    //   () {
+    //     ScaffoldMessenger.of(context).showSnackBar(
+    //       SnackBar(
+    //         content: Text(
+    //             'w${MediaQuery.of(context).size.width} h${MediaQuery.of(context).size.height}'),
+    //       ),
+    //     );
+    //   },
+    // );
+    //TODO del this
   }
 
   void _updatesListener() => notifyListeners();
