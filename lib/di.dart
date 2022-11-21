@@ -4,10 +4,10 @@ import 'package:chemtime/domain_features/reports/reports_interactor.dart';
 import 'package:chemtime/domain_features/reports/reports_repository.dart';
 import 'package:chemtime/domain_features/settings/settings_interactor.dart';
 import 'package:chemtime/domain_features/settings/settings_repository.dart';
-import 'package:chemtime/domain_features/users/users_interactor.dart';
+import 'package:chemtime/domain_features/auth/auth_interactor.dart';
 
 class DI {
-  late final usersInteractor = UsersInteractor()..initInteractor();
+  late final authInteractor = AuthInteractor()..initInteractor();
 
   late final settingsRepository = SettingsRepository();
   late final settingsInteractor =

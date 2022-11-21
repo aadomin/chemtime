@@ -25,6 +25,7 @@ mixin _$RecordEntity {
   double get hours => throw _privateConstructorUsedError;
   DateTime get firstDayOfThatWeek => throw _privateConstructorUsedError;
   DateTime get timestamp => throw _privateConstructorUsedError;
+  int get nonUniqueKey => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,7 +44,8 @@ abstract class $RecordEntityCopyWith<$Res> {
       String employeeName,
       double hours,
       DateTime firstDayOfThatWeek,
-      DateTime timestamp});
+      DateTime timestamp,
+      int nonUniqueKey});
 }
 
 /// @nodoc
@@ -64,6 +66,7 @@ class _$RecordEntityCopyWithImpl<$Res, $Val extends RecordEntity>
     Object? hours = null,
     Object? firstDayOfThatWeek = null,
     Object? timestamp = null,
+    Object? nonUniqueKey = null,
   }) {
     return _then(_value.copyWith(
       stringShortcut: null == stringShortcut
@@ -86,6 +89,10 @@ class _$RecordEntityCopyWithImpl<$Res, $Val extends RecordEntity>
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      nonUniqueKey: null == nonUniqueKey
+          ? _value.nonUniqueKey
+          : nonUniqueKey // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -103,7 +110,8 @@ abstract class _$$_RecordEntityCopyWith<$Res>
       String employeeName,
       double hours,
       DateTime firstDayOfThatWeek,
-      DateTime timestamp});
+      DateTime timestamp,
+      int nonUniqueKey});
 }
 
 /// @nodoc
@@ -122,6 +130,7 @@ class __$$_RecordEntityCopyWithImpl<$Res>
     Object? hours = null,
     Object? firstDayOfThatWeek = null,
     Object? timestamp = null,
+    Object? nonUniqueKey = null,
   }) {
     return _then(_$_RecordEntity(
       stringShortcut: null == stringShortcut
@@ -144,6 +153,10 @@ class __$$_RecordEntityCopyWithImpl<$Res>
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      nonUniqueKey: null == nonUniqueKey
+          ? _value.nonUniqueKey
+          : nonUniqueKey // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -156,7 +169,8 @@ class _$_RecordEntity with DiagnosticableTreeMixin implements _RecordEntity {
       required this.employeeName,
       required this.hours,
       required this.firstDayOfThatWeek,
-      required this.timestamp});
+      required this.timestamp,
+      required this.nonUniqueKey});
 
   factory _$_RecordEntity.fromJson(Map<String, dynamic> json) =>
       _$$_RecordEntityFromJson(json);
@@ -171,10 +185,12 @@ class _$_RecordEntity with DiagnosticableTreeMixin implements _RecordEntity {
   final DateTime firstDayOfThatWeek;
   @override
   final DateTime timestamp;
+  @override
+  final int nonUniqueKey;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RecordEntity(stringShortcut: $stringShortcut, employeeName: $employeeName, hours: $hours, firstDayOfThatWeek: $firstDayOfThatWeek, timestamp: $timestamp)';
+    return 'RecordEntity(stringShortcut: $stringShortcut, employeeName: $employeeName, hours: $hours, firstDayOfThatWeek: $firstDayOfThatWeek, timestamp: $timestamp, nonUniqueKey: $nonUniqueKey)';
   }
 
   @override
@@ -186,7 +202,8 @@ class _$_RecordEntity with DiagnosticableTreeMixin implements _RecordEntity {
       ..add(DiagnosticsProperty('employeeName', employeeName))
       ..add(DiagnosticsProperty('hours', hours))
       ..add(DiagnosticsProperty('firstDayOfThatWeek', firstDayOfThatWeek))
-      ..add(DiagnosticsProperty('timestamp', timestamp));
+      ..add(DiagnosticsProperty('timestamp', timestamp))
+      ..add(DiagnosticsProperty('nonUniqueKey', nonUniqueKey));
   }
 
   @override
@@ -202,13 +219,15 @@ class _$_RecordEntity with DiagnosticableTreeMixin implements _RecordEntity {
             (identical(other.firstDayOfThatWeek, firstDayOfThatWeek) ||
                 other.firstDayOfThatWeek == firstDayOfThatWeek) &&
             (identical(other.timestamp, timestamp) ||
-                other.timestamp == timestamp));
+                other.timestamp == timestamp) &&
+            (identical(other.nonUniqueKey, nonUniqueKey) ||
+                other.nonUniqueKey == nonUniqueKey));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, stringShortcut, employeeName,
-      hours, firstDayOfThatWeek, timestamp);
+      hours, firstDayOfThatWeek, timestamp, nonUniqueKey);
 
   @JsonKey(ignore: true)
   @override
@@ -230,7 +249,8 @@ abstract class _RecordEntity implements RecordEntity {
       required final String employeeName,
       required final double hours,
       required final DateTime firstDayOfThatWeek,
-      required final DateTime timestamp}) = _$_RecordEntity;
+      required final DateTime timestamp,
+      required final int nonUniqueKey}) = _$_RecordEntity;
 
   factory _RecordEntity.fromJson(Map<String, dynamic> json) =
       _$_RecordEntity.fromJson;
@@ -245,6 +265,8 @@ abstract class _RecordEntity implements RecordEntity {
   DateTime get firstDayOfThatWeek;
   @override
   DateTime get timestamp;
+  @override
+  int get nonUniqueKey;
   @override
   @JsonKey(ignore: true)
   _$$_RecordEntityCopyWith<_$_RecordEntity> get copyWith =>

@@ -22,6 +22,7 @@ class DetailsPageDI extends StatelessWidget {
         context: context,
         settingsInteractor: context.read<DI>().settingsInteractor,
         recordsInteractor: context.read<DI>().recordsInteractor,
+        authInteractor: context.read<DI>().authInteractor,
         selectedDayOfWeek: selectedDayOfWeek,
         employee: employee,
       ),

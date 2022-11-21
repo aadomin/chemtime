@@ -17,6 +17,7 @@ class RecordEntity with _$RecordEntity {
     required double hours,
     required DateTime firstDayOfThatWeek,
     required DateTime timestamp,
+    required int nonUniqueKey,
   }) = _RecordEntity;
 
   factory RecordEntity.fromJson(Map<String, Object?> json) =>

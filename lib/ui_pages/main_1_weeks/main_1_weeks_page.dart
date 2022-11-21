@@ -39,17 +39,19 @@ class _Main1WeeksPageState extends State<Main1WeeksPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Column(
-          children: [
-            const Text('Данные по неделям'),
-            Padding(
-              padding: const EdgeInsets.only(top: 3),
-              child: Text(
-                ___vm.title(),
-                style: const TextStyle(fontSize: 12),
+        title: Center(
+          child: Column(
+            children: [
+              const Text('Данные по неделям'),
+              Padding(
+                padding: const EdgeInsets.only(top: 3),
+                child: Text(
+                  ___vm.title(),
+                  style: const TextStyle(fontSize: 12),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       body: _buildList(),
@@ -63,6 +65,7 @@ class _Main1WeeksPageState extends State<Main1WeeksPage> {
   Widget _buildList() {
     return InfiniteListView.separated(
       //key: PageStorageKey(1), //TODO вау!!!
+
       controller: _infiniteController,
       anchor: 0.5,
       separatorBuilder: (BuildContext context, int index) =>
@@ -71,12 +74,14 @@ class _Main1WeeksPageState extends State<Main1WeeksPage> {
         var text =
             '${___vm.shiftedMonday(index).russianDate} - ${___vm.shiftedSunday(index).russianDate}';
         text += ', #$index, ${___vm.shiftedWeekNumber(index)}';
-        var isThatCurrentWeek =
-            ___vm.shiftedMonday(index).getWeek == DateTime.now().getWeek;
-        var isThatPreviousWeek =
-            ___vm.shiftedMonday(index).getWeek == DateTime.now().getWeek - 1;
-        var isThatNextWeek =
-            ___vm.shiftedMonday(index).getWeek == DateTime.now().getWeek + 1;
+
+        var isThatCurrentWeek = ___vm.shiftedMonday(index).mondayOfThisWeek ==
+            DateTime.now().mondayOfThisWeek;
+        var isThatPreviousWeek = ___vm.shiftedMonday(index).mondayOfThisWeek ==
+            DateTime.now().add(const Duration(days: -7)).mondayOfThisWeek;
+        var isThatNextWeek = ___vm.shiftedMonday(index).mondayOfThisWeek ==
+            DateTime.now().add(const Duration(days: 7)).mondayOfThisWeek;
+
         var isThatWeekInFuture =
             ___vm.shiftedMonday(index) > DateTime.now().mondayOfThisWeek;
 
@@ -85,12 +90,13 @@ class _Main1WeeksPageState extends State<Main1WeeksPage> {
         if (isThatNextWeek) text += ' (следующая)';
 
         return Material(
+          key: ValueKey(index), //TODO всем спискам добавить ключи
           child: InkWell(
             child: ListTile(
               title: Text(text,
                   style: isThatCurrentWeek
-                      ? const TextStyle(
-                          color: Colors.blueAccent,
+                      ? TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
                           fontWeight: FontWeight.bold,
                         )
                       : const TextStyle()),

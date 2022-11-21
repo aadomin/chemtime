@@ -1,3 +1,4 @@
+import 'package:chemtime/domain_features/auth/auth_interactor.dart';
 import 'package:chemtime/ui_pages/select_hours/select_hours_page_di.dart';
 import 'package:dart_date/dart_date.dart';
 
@@ -15,6 +16,7 @@ class DetailsPageVM with ChangeNotifier {
     required this.context,
     required this.recordsInteractor,
     required this.settingsInteractor,
+    required this.authInteractor,
     required this.selectedDayOfWeek,
     required this.employee,
   });
@@ -22,6 +24,7 @@ class DetailsPageVM with ChangeNotifier {
   BuildContext context;
   SettingsInteractor settingsInteractor;
   RecordsInteractor recordsInteractor;
+  AuthInteractor authInteractor;
   DateTime selectedDayOfWeek;
   EmployeeEntity employee;
   late List<RecordEntity> records;
@@ -31,7 +34,11 @@ class DetailsPageVM with ChangeNotifier {
   TextEditingController projectFilterTextController = TextEditingController();
   PageController pageViewController = PageController(initialPage: 1);
 
-  late List<Listenable> listenTo = [recordsInteractor, settingsInteractor];
+  late List<Listenable> listenTo = [
+    recordsInteractor,
+    settingsInteractor,
+    authInteractor,
+  ];
   void initVM() {
     for (var element in listenTo) {
       element.addListener(_updatesListener);
@@ -40,7 +47,11 @@ class DetailsPageVM with ChangeNotifier {
     notifyListeners();
   }
 
-  void _updatesListener() => notifyListeners();
+  void _updatesListener() {
+    _loadData(); //ТУТВОПРОС не нравится. как инитСтейт.
+    notifyListeners();
+  }
+
   void disposeVM() {
     for (var element in listenTo) {
       element.removeListener(_updatesListener);
@@ -54,15 +65,20 @@ class DetailsPageVM with ChangeNotifier {
         employee, selectedDayOfWeek);
     previousWeekRecords = recordsInteractor.getRecordsOfEmployeeAtWeek(
         employee, selectedDayOfWeek.previousWeek);
+    _loadProjectsDetails();
+    notifyListeners();
+  }
 
+  void _loadProjectsDetails() {
     recordsProjects = <String, ProjectEntity>{};
     for (final record in records) {
       recordsProjects[record.stringShortcut] =
           (settingsInteractor.settings.projects.firstWhere(
               (element) => element.stringShortcut == record.stringShortcut));
     }
-    notifyListeners();
   }
+
+  //
 
   String get title1 => '${employee.name}';
   String get title2 =>
@@ -73,31 +89,28 @@ class DetailsPageVM with ChangeNotifier {
 
   List<String> get shortcutsList => settingsInteractor.settings.shortcuts;
 
-  List<ProjectEntity> get allProjects => settingsInteractor.settings.projects;
-
-  Future<void> onTapOnRecordHours(RecordEntity record) async {
-    double selectedHours =
-        await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return SelectHoursPageDI(
-                selectedHours: record.hours,
-                stringShortcut: record.stringShortcut,
-              );
-            })) ??
-            0;
-    records[records.indexWhere((element) => element == record)] =
-        records[records.indexWhere((element) => element == record)]
-            .copyWith(hours: selectedHours);
-    //TODO исправить на интерактор
-    notifyListeners();
-  }
-
-  void onTapOnRemoveRecord(RecordEntity record) {
-    records.remove(record);
-    notifyListeners();
-    //TODO исправить потому что удалять в интеракторе.
-  }
-
   //
+
+  String textInFilter = '';
+
+  void onFilterTextChange(String value) {
+    textInFilter = value;
+    notifyListeners();
+  }
+
+  // TODO будет изменена модель проекта
+  List<ProjectEntity> filteredProjects() {
+    if (textInFilter.isEmpty) return settingsInteractor.settings.projects;
+    return [
+      for (final project in settingsInteractor.settings.projects)
+        if (project.fullName
+            .toLowerCase()
+            .contains(textInFilter.toLowerCase())) //
+          project
+    ];
+  }
+
+  // GET
 
   void onPreviousWeek() {
     selectedDayOfWeek = selectedDayOfWeek.previousWeek;
@@ -125,5 +138,113 @@ class DetailsPageVM with ChangeNotifier {
         }
       },
     );
+  }
+
+  // SET
+
+  Future<void> onTapOnRecordHours(RecordEntity record) async {
+    if (authInteractor.currentUserCanOnlyRead) {
+      _showMessageReadOnlyUser();
+      return;
+    }
+    var newHours =
+        await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return SelectHoursPageDI(
+                selectedHours: record.hours,
+                stringShortcut: record.stringShortcut,
+              );
+            })) ??
+            0;
+
+    var oldRecord = record;
+    var newRecord = record.copyWith(hours: newHours);
+
+    recordsInteractor.replaceRecord(
+      oldRecord: oldRecord,
+      newRecord: newRecord,
+    );
+
+    notifyListeners();
+  }
+
+  Future<void> onTapOnRemoveRecord(RecordEntity record) async {
+    if (authInteractor.currentUserCanOnlyRead) {
+      _showMessageReadOnlyUser();
+      return;
+    }
+    //ТУТВОПРОС вот так появляется ошибка
+    // records.remove(record);
+    // notifyListeners();
+    try {
+      await recordsInteractor.removeRecord(record);
+      // not notify because we listen notifies from recordsInteractor
+    } catch (e) {
+      _showMessageError();
+    }
+  }
+
+  Future<void> onAddProject(project) async {
+    if (authInteractor.currentUserCanOnlyRead) {
+      _showMessageReadOnlyUser();
+      return;
+    }
+    try {
+      await recordsInteractor.addRecordWithProject(
+        project: project,
+        employee: employee,
+        dayOfWeek: selectedDayOfWeek,
+      );
+      // not notify because we listen notifies from recordsInteractor
+    } catch (e) {
+      _showMessageError();
+    }
+  }
+
+  Future<void> onAddProjectFromShortcut({required String shortcut}) async {
+    // ТУТВОПРОС - где проверка авторизации пользователя?
+    // если тут - тут можно сообщение показать что не хватает прав.
+    // но вообще лучше же в интеракторе наверно ..или и там и там
+    if (authInteractor.currentUserCanOnlyRead) {
+      _showMessageReadOnlyUser();
+      return;
+    }
+    try {
+      await recordsInteractor.addRecordWithProjectStringShortcut(
+        projectStringShortcut: shortcut,
+        employee: employee,
+        dayOfWeek: selectedDayOfWeek,
+      );
+      // not notifyListeners because we listen recordsInteractor
+    } catch (e) {
+      _showMessageError();
+    }
+  }
+
+  Future<void> onDuplicateLastWeek() async {
+    if (authInteractor.currentUserCanOnlyRead) {
+      _showMessageReadOnlyUser();
+      return;
+    }
+    try {
+      await recordsInteractor.onDuplicatePreviousWeek(
+        employee: employee,
+        dayOfWeek: selectedDayOfWeek,
+      );
+      // not notifyListeners because we listen recordsInteractor
+    } catch (e) {
+      _showMessageError();
+    }
+  }
+
+  void _showMessageError() {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text('Произошла ошибка')));
+  }
+
+  void _showMessageReadOnlyUser() {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Редактирование не доступно')));
   }
 }

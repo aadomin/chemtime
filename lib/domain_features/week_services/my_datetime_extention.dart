@@ -11,7 +11,7 @@ extension Date on DateTime {
       DateTime.saturday: -5,
       DateTime.sunday: -6,
     };
-    return DateTime(year, month, day, hour, minute, second)
+    return DateTime(year, month, day, 7, 7, 7)
         .add(Duration(days: shiftToMonday[weekday]!));
   }
 
@@ -25,7 +25,7 @@ extension Date on DateTime {
       DateTime.saturday: 1,
       DateTime.sunday: 0,
     };
-    return DateTime(year, month, day, hour, minute, second)
+    return DateTime(year, month, day, 7, 7, 7)
         .add(Duration(days: shiftToSunday[weekday]!));
   }
 
@@ -38,19 +38,19 @@ extension Date on DateTime {
   }
 
   DateTime mondayBuilder(int delta) {
-    return DateTime(year, month, day, hour, minute, second)
+    return DateTime(year, month, day, 7, 7, 7)
         .mondayOfThisWeek
         .add(Duration(days: 7 * delta));
   }
 
   DateTime sundayBuilder(int delta) {
-    return DateTime(year, month, day, hour, minute, second)
+    return DateTime(year, month, day, 7, 7, 7)
         .sundayOfThisWeek
         .add(Duration(days: 7 * delta));
   }
 
   int get amountOfWeeksInThatYear {
-    final day1 = DateTime(year, month, day, hour, minute, second);
+    final day1 = DateTime(year, month, day, 7, 7, 7);
     final firstDayInYear = DateTime(day1.year, 1, 1);
     var i = DateTime(day1.year, 1, 1);
     var result = 1;

@@ -23,3 +23,7 @@ class ProjectEntity with _$ProjectEntity {
   factory ProjectEntity.fromJson(Map<String, Object?> json) =>
       _$ProjectEntityFromJson(json);
 }
+
+extension ProjectEntityExt on ProjectEntity {
+  String get fullName => '$numberShortcut. $company - $name ($stringShortcut)';
+}

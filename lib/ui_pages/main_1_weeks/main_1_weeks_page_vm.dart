@@ -1,4 +1,5 @@
 import 'package:chemtime/domain_features/records/records_interactor.dart';
+import 'package:chemtime/domain_features/settings/settings_interactor.dart';
 import 'package:chemtime/ui_pages/main_1_weeks/employees_of_week_page_di.dart';
 import 'package:dart_date/dart_date.dart';
 import 'package:chemtime/domain_features/week_services/my_datetime_extention.dart';
@@ -8,11 +9,16 @@ class Main1WeeksPageVM with ChangeNotifier {
   Main1WeeksPageVM({
     required this.context,
     required this.recordsInteractor,
+    required this.settingsInteractor,
   });
   BuildContext context;
   RecordsInteractor recordsInteractor;
+  SettingsInteractor settingsInteractor;
 
-  late List<Listenable> listenTo = []; //TODO recordsInteractor
+  late List<Listenable> listenTo = [
+    recordsInteractor,
+    settingsInteractor
+  ]; //TODO recordsInteractor
 
   void initVM() {
     for (var element in listenTo) {

@@ -13,6 +13,7 @@ _$_RecordEntity _$$_RecordEntityFromJson(Map<String, dynamic> json) =>
       hours: (json['hours'] as num).toDouble(),
       firstDayOfThatWeek: DateTime.parse(json['firstDayOfThatWeek'] as String),
       timestamp: DateTime.parse(json['timestamp'] as String),
+      nonUniqueKey: json['nonUniqueKey'] as int,
     );
 
 Map<String, dynamic> _$$_RecordEntityToJson(_$_RecordEntity instance) =>
@@ -22,4 +23,5 @@ Map<String, dynamic> _$$_RecordEntityToJson(_$_RecordEntity instance) =>
       'hours': instance.hours,
       'firstDayOfThatWeek': instance.firstDayOfThatWeek.toIso8601String(),
       'timestamp': instance.timestamp.toIso8601String(),
+      'nonUniqueKey': instance.nonUniqueKey,
     };

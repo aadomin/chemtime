@@ -99,7 +99,8 @@ class _DetailsPageState extends State<DetailsPage> {
                     ),
                   ),
                 )
-              : const Center(child: Text('на этой неделе он(а) не работал(а)')),
+              : const Center(
+                  child: Text('на этой неделе он(а) не был(а) в штате')),
           const Center(child: CircularProgressIndicator()),
         ],
       ),
@@ -110,22 +111,23 @@ class _DetailsPageState extends State<DetailsPage> {
     return Row(
       children: [
         Expanded(
-          child: Builder(
-            builder: (context) {
-              var text = '';
-              for (final record in ___vm.previousWeekRecords) {
-                text += '${record.hours}ч - ${record.stringShortcut}, ';
-              }
-
-              return Text(text);
-            },
+          child: Center(
+            child: Wrap(
+              alignment: WrapAlignment.center,
+              children: [
+                for (final record in ___vm.previousWeekRecords)
+                  Text('${record.hours}ч - ${record.stringShortcut}, '),
+              ],
+            ),
           ),
         ),
         SizedBox(
           width: 120,
           height: 40,
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              ___vm.onDuplicateLastWeek();
+            },
             child: DecoratedBox(
               decoration: BoxDecoration(
                   border: Border.all(color: const Color(0xFFEEEEEE)),
@@ -152,6 +154,7 @@ class _DetailsPageState extends State<DetailsPage> {
         removeDuration: const Duration(milliseconds: 200),
         itemBuilder: (_, RecordEntity record, __, Animation<double> animation) {
           return FadeTransition(
+            key: ObjectKey(record),
             opacity: animation,
             child: SizeTransition(
               sizeFactor: animation,
@@ -163,6 +166,8 @@ class _DetailsPageState extends State<DetailsPage> {
         removeBuilder:
             (_, RecordEntity record, __, Animation<double> animation) {
           return FadeTransition(
+            key: ObjectKey(record.copyWith(
+                nonUniqueKey: record.nonUniqueKey + 32000)), //ТУТВОПРОС
             opacity: animation,
             child: SizeTransition(
               sizeFactor: animation,
@@ -271,7 +276,9 @@ class _DetailsPageState extends State<DetailsPage> {
         children: [
           for (final item in ___vm.shortcutsList)
             InkWell(
-              onTap: () {},
+              onTap: () {
+                ___vm.onAddProjectFromShortcut(shortcut: item);
+              },
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   border: Border.all(color: const Color(0xFFEEEEEE)),
@@ -298,16 +305,16 @@ class _DetailsPageState extends State<DetailsPage> {
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
           child: TextField(
             controller: ___vm.projectFilterTextController,
-            decoration: InputDecoration(
+            onChanged: (value) => ___vm.onFilterTextChange(value),
+            decoration: const InputDecoration(
               labelText: 'Фильтр по проектам',
               enabledBorder: OutlineInputBorder(
-                borderSide:
-                    const BorderSide(width: 1, color: Color(0xFFDDDDDD)),
-                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide(width: 1, color: Color(0xFFDDDDDD)),
+                //borderRadius: BorderRadius.circular(15),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: const BorderSide(width: 1, color: Colors.red),
-                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide(width: 1, color: Colors.red),
+                //borderRadius: BorderRadius.circular(15),
               ),
             ),
           ),
@@ -315,17 +322,24 @@ class _DetailsPageState extends State<DetailsPage> {
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 8, 0, 50),
           child: SizedBox(
-            height: 32.0 * ___vm.allProjects.length.toDouble(),
+            height: 32.0 * ___vm.filteredProjects().length.toDouble(),
             child: ListView.builder(
-              itemCount: ___vm.allProjects.length,
+              itemCount: ___vm.filteredProjects().length,
               itemBuilder: ((context, index) {
                 return _ProjectTile(
-                  project: ___vm.allProjects[index],
+                  project: ___vm.filteredProjects()[index],
+                  // ТУТВОПРОС че то затупил
+                  onAddProject: (project) {
+                    ___vm.onAddProject(project);
+                  },
                 );
               }),
             ),
           ),
         ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 2.0 / 3.0,
+        )
       ],
     );
   }
@@ -349,13 +363,17 @@ class _SmallTitle extends StatelessWidget {
 }
 
 class _ProjectTile extends StatelessWidget {
-  const _ProjectTile({required this.project, super.key});
+  const _ProjectTile(
+      {required this.project, required this.onAddProject, super.key});
   final ProjectEntity project;
+  final void Function(ProjectEntity) onAddProject;
 
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
-      onPressed: () {},
+      onPressed: () {
+        onAddProject(project);
+      },
       child: SizedBox(
         height: 32,
         child: Row(

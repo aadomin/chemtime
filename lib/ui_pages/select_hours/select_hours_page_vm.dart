@@ -65,5 +65,6 @@ class SelectHoursPageVM with ChangeNotifier {
     selectedHours = hour.toDouble();
     textController.text = selectedHours.toString();
     notifyListeners();
+    onSave(); //TODO рассмотреть потом
   }
 }

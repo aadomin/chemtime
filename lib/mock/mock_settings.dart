@@ -13,7 +13,7 @@ import 'package:chemtime/domain_entities/work_period/work_period_entity.dart';
 class MockSettings {
   late final dateNow = DateTime.now();
   late final dateEstablish = DateTime(2008, 10, 10);
-  late final dateOfWorldEnd = DateTime(2222, 10, 10);
+  late final dateOfWorldEnd = DateTime(2099, 10, 10);
   late final date2NextWeek = dateNow.nextWeek;
   late final date2PrevWeek = dateNow.previousWeek;
   late final dateProjectFinish = DateTime.now(); //?
@@ -117,35 +117,39 @@ class MockSettings {
     EmployeeEntity(
         name: 'Лосева И.', sortingFactor: 600, periodsOfWork: [periodLong]),
     EmployeeEntity(
-        name: 'Отпуск', sortingFactor: 700, periodsOfWork: [period1, period2]),
-    EmployeeEntity(
-        name: 'Бийонсе И.', sortingFactor: 800, periodsOfWork: [periodLong]),
-    EmployeeEntity(
         name: 'Сэм Смит', sortingFactor: 900, periodsOfWork: [periodLong]),
     EmployeeEntity(
         name: 'Кобзон Иосиф', sortingFactor: 950, periodsOfWork: [periodLong]),
     EmployeeEntity(
-        name: 'Мистер Фримен', sortingFactor: 990, periodsOfWork: [periodLong]),
+        name: 'Растафарианин', sortingFactor: 960, periodsOfWork: [periodLong]),
+    EmployeeEntity(
+        name: 'Беойнсе', sortingFactor: 960, periodsOfWork: [periodLong]),
+    EmployeeEntity(
+        name: 'Уволен', sortingFactor: 990, periodsOfWork: [period1]),
+    EmployeeEntity(
+        name: 'Отпуск', sortingFactor: 700, periodsOfWork: [period1, period2]),
+    EmployeeEntity(
+        name: 'Принята', sortingFactor: 800, periodsOfWork: [period3]),
   ];
 
   late final group1 = EmployeeGroupEntity(
     groupName: 'ТХ',
-    employees: [employees[0]],
+    employees: [employees[0], employees[1], employees[2]],
     sortingFactor: 100,
   );
   late final group2 = EmployeeGroupEntity(
     groupName: 'КД',
-    employees: [employees[1], employees[2], employees[3]],
+    employees: [employees[3], employees[4], employees[5]],
     sortingFactor: 200,
   );
   late final group3 = EmployeeGroupEntity(
     groupName: 'СТ',
-    employees: [employees[4], employees[5], employees[6], employees[7]],
+    employees: [employees[6], employees[7], employees[8], employees[9]],
     sortingFactor: 300,
   );
   late final group4 = EmployeeGroupEntity(
     groupName: 'Э',
-    employees: [employees[8], employees[9], employees[10]],
+    employees: [employees[10], employees[11], employees[12]],
     sortingFactor: 400,
   );
 

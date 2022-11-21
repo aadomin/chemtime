@@ -1,5 +1,6 @@
 import 'package:chemtime/domain_entities/employee/employee_entity.dart';
 import 'package:chemtime/domain_entities/record/record_entity.dart';
+import 'package:chemtime/ui_common_widgets/widget_group_tile.dart';
 import 'package:chemtime/ui_pages/main_1_weeks/employees_of_week_page_vm.dart';
 import 'package:flutter/material.dart';
 
@@ -92,11 +93,9 @@ class _EmployeesOfWeekPageState extends State<EmployeesOfWeekPage> {
       //
       // Title of group
       result.add(
-        ListTile(
+        WidgetGroupTile(
+          groupName: employeeGroup.groupName,
           key: ObjectKey(employeeGroup),
-          title: _WidgetGroupTile(
-            groupName: employeeGroup.groupName,
-          ),
         ),
       );
 
@@ -104,40 +103,19 @@ class _EmployeesOfWeekPageState extends State<EmployeesOfWeekPage> {
       // Employees of group
       for (var employee in employeeGroup.employees) {
         result.add(
-          //ТУТВОПРОС наследники
           _WidgetEmployeeTile(
             employee: employee,
             listOfRecords: ___vm.employeesAndRecords[employee]!,
             onTap: () {
               ___vm.onEmployeeTap(employee);
             },
+            key: ObjectKey(employee),
           ),
         );
       }
     }
 
     return result;
-  }
-}
-
-class _WidgetGroupTile extends StatelessWidget {
-  const _WidgetGroupTile({required this.groupName, super.key});
-
-  final String groupName;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      key: Key(groupName),
-      title: Text(
-        groupName,
-        textAlign: TextAlign.center,
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 14,
-        ),
-      ),
-    );
   }
 }
 
@@ -156,7 +134,6 @@ class _WidgetEmployeeTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      key: ObjectKey(employee),
       trailing: const Icon(Icons.chevron_right),
       onTap: onTap,
       title: Row(

@@ -26,6 +26,7 @@ class MockRecordsProvider {
           hours: hours[math.Random().nextInt(hours.length)],
           firstDayOfThatWeek: days[math.Random().nextInt(days.length)],
           timestamp: DateTime.now(),
+          nonUniqueKey: math.Random().nextInt(32000),
         ),
     ];
   }

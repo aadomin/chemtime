@@ -1,3 +1,4 @@
+import 'package:chemtime/di.dart';
 import 'package:chemtime/ui_pages/main_2_employees/main_2_employees.dart';
 import 'package:chemtime/ui_pages/main_2_employees/main_2_employees_vm.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +11,7 @@ class Main2EmployeesDI extends StatelessWidget {
     return Main2Employees(
       viewModel: Main2EmployeesVM(
         context: context,
-        //hardworkInteractor: context.read<DI>().hardworkInteractor,
+        settingsInteractor: context.read<DI>().settingsInteractor,
       ),
     );
   }
