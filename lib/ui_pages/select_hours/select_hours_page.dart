@@ -35,7 +35,17 @@ class _SelectHoursPageState extends State<SelectHoursPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('hours')),
+      appBar: AppBar(
+        title: const Text('Трудозатраты'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.local_pizza),
+            onPressed: () {
+              ___vm.onOpenStakeSelection();
+            },
+          )
+        ],
+      ),
       body: Stack(
         children: [
           Positioned(
@@ -65,7 +75,11 @@ class _SelectHoursPageState extends State<SelectHoursPage> {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
+          //
+          // TextField
+          //
           Padding(
             padding: const EdgeInsets.fromLTRB(40, 8, 40, 0),
             child: TextField(
@@ -74,22 +88,77 @@ class _SelectHoursPageState extends State<SelectHoursPage> {
               onChanged: ___vm.onChangeTextField,
             ),
           ),
+
+          //
+          // Days
+          //
           const SizedBox(height: 8, width: 8),
-          Wrap(alignment: WrapAlignment.center, children: [
-            for (int i = 1; i < 61; i++)
-              _buttonHour(
-                  hour: i,
-                  onTap: () {
-                    ___vm.onTapOnHour(i);
-                  }),
-          ]),
+          SizedBox(
+            height: 120, //ТУТВОПРОС стоит ли так оставлять
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Wrap(
+                  alignment: WrapAlignment.center,
+                  children: [
+                    for (final e in ___vm.daysShorts.keys)
+                      // ТУТВОПРОС
+                      _buttonHour(
+                          hour: e,
+                          title: ___vm.daysShorts[e]!,
+                          isHighlighted: true,
+                          onTap: () {
+                            ___vm.onTapOnHour(e);
+                          }),
+                  ],
+                ),
+                const Divider(),
+              ],
+            ),
+          ),
+
+          //
+          // Hours
+          //
+          const SizedBox(height: 8, width: 8),
+          for (int i = 0; i < 50; i += 10)
+            SizedBox(
+              height: 110, //
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Wrap(
+                    alignment: WrapAlignment.center,
+                    children: [
+                      for (int j = 1; j < 11; j++)
+                        // ТУТВОПРОС
+                        _buttonHour(
+                            hour: i + j,
+                            title: '${i + j}ч',
+                            isHighlighted: (i + j) % 8 == 0,
+                            onTap: () {
+                              ___vm.onTapOnHour(i + j);
+                            }),
+                    ],
+                  ),
+                  const Spacer(),
+                ],
+              ),
+            ),
           const SizedBox(height: 100, width: 8),
         ],
       ),
     );
   }
 
-  Widget _buttonHour({required int hour, required void Function() onTap}) {
+  Widget _buttonHour({
+    required int hour,
+    required String title,
+    required bool isHighlighted,
+    required void Function() onTap,
+  }) {
+    // ТУТВОПРОС что раньше?
+    //
     // Future.delayed(const Duration(microseconds: 1), () {
     //   ScaffoldMessenger.of(context).clearSnackBars();
     //   ScaffoldMessenger.of(context).showSnackBar(
@@ -110,7 +179,13 @@ class _SelectHoursPageState extends State<SelectHoursPage> {
           height: 48,
           child: Center(
             child: Text(
-              hour.toString(),
+              title,
+              style: isHighlighted
+                  ? const TextStyle(
+                      fontWeight: FontWeight.w900,
+                      color: Colors.brown,
+                    )
+                  : const TextStyle(),
             ),
           ),
         ),

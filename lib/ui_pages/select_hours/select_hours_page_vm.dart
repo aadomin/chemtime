@@ -1,3 +1,4 @@
+import 'package:chemtime/ui_pages/select_stake/select_stake_page_di.dart';
 import 'package:flutter/material.dart';
 
 class SelectHoursPageVM with ChangeNotifier {
@@ -19,20 +20,6 @@ class SelectHoursPageVM with ChangeNotifier {
     }
     textController.text = selectedHours.toString();
     notifyListeners();
-
-    //TODO del this
-    // Future.delayed(
-    //   const Duration(microseconds: 1),
-    //   () {
-    //     ScaffoldMessenger.of(context).showSnackBar(
-    //       SnackBar(
-    //         content: Text(
-    //             'w${MediaQuery.of(context).size.width} h${MediaQuery.of(context).size.height}'),
-    //       ),
-    //     );
-    //   },
-    // );
-    //TODO del this
   }
 
   void _updatesListener() => notifyListeners();
@@ -67,4 +54,30 @@ class SelectHoursPageVM with ChangeNotifier {
     notifyListeners();
     onSave(); //TODO рассмотреть потом
   }
+
+  Future<void> onOpenStakeSelection() async {
+    // ТУТВОПРОС
+    dynamic result = await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const SelectStakePageDI(),
+      ),
+    );
+    if (result is double) selectedHours = result;
+    textController.text = selectedHours.toString();
+    notifyListeners();
+    onSave();
+  }
+
+  Map<int, String> daysShorts = {
+    4: '0.5д',
+    12: '1.5д',
+    20: '2.5д',
+    28: '3.5д',
+    36: '4.5д',
+    8: '1д',
+    16: '2д',
+    24: '3д',
+    32: '4д',
+    40: '5д',
+  };
 }
