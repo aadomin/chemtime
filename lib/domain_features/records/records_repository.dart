@@ -4,9 +4,15 @@ import 'package:chemtime/mock/mock_records.dart';
 
 class RecordsRepository {
   List<RecordEntity> loadRecords() {
-    MockRecordsProvider mockRecordsProvider = MockRecordsProvider();
-    final mockRecords = mockRecordsProvider.loadMockRecords();
-    
-    return mockRecords; //TODO del mock
+    MockRecords mockRecordsGenerator = MockRecords();
+
+    return mockRecordsGenerator.loadMockRecords(); //TODO del mock
   }
+
+  Future<void> addRecord(RecordEntity record) async {}
+
+  Future<void> updateRecord(
+      RecordEntity oldRecord, RecordEntity newRecord) async {}
+
+  Future<void> removeRecord(RecordEntity record) async {}
 }

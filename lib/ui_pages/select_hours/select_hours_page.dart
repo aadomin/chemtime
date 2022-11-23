@@ -46,23 +46,9 @@ class _SelectHoursPageState extends State<SelectHoursPage> {
           )
         ],
       ),
-      body: Stack(
-        children: [
-          Positioned(
-            left: 8,
-            right: 8,
-            top: 8,
-            bottom: 0,
-            child: _mainContent(),
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            height: 50,
-            bottom: 0,
-            child: _bottomMainButtons(),
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: _mainContent(),
       ),
     );
   }
@@ -80,6 +66,7 @@ class _SelectHoursPageState extends State<SelectHoursPage> {
           //
           // TextField
           //
+          const Text('Введите вручную:'),
           Padding(
             padding: const EdgeInsets.fromLTRB(40, 8, 40, 0),
             child: TextField(
@@ -88,31 +75,40 @@ class _SelectHoursPageState extends State<SelectHoursPage> {
               onChanged: ___vm.onChangeTextField,
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: OutlinedButton(
+              onPressed: ___vm.onSave,
+              child: const SizedBox(
+                height: 48,
+                width: 120,
+                child: Center(
+                  child: Text('Сохранить'),
+                ),
+              ),
+            ),
+          ),
 
           //
           // Days
           //
+          const SizedBox(height: 24, width: 8),
+          const Text('или используйте готовые варианты, дни:'),
           const SizedBox(height: 8, width: 8),
           SizedBox(
             height: 120, //ТУТВОПРОС стоит ли так оставлять
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
+            child: Wrap(
+              alignment: WrapAlignment.center,
               children: [
-                Wrap(
-                  alignment: WrapAlignment.center,
-                  children: [
-                    for (final e in ___vm.daysShorts.keys)
-                      // ТУТВОПРОС
-                      _buttonHour(
-                          hour: e,
-                          title: ___vm.daysShorts[e]!,
-                          isHighlighted: true,
-                          onTap: () {
-                            ___vm.onTapOnHour(e);
-                          }),
-                  ],
-                ),
-                const Divider(),
+                for (final e in ___vm.daysShorts.keys)
+                  // ТУТВОПРОС
+                  _buttonHour(
+                      hour: e,
+                      title: ___vm.daysShorts[e]!,
+                      isHighlighted: true,
+                      onTap: () {
+                        ___vm.onTapOnHour(e);
+                      }),
               ],
             ),
           ),
@@ -120,6 +116,8 @@ class _SelectHoursPageState extends State<SelectHoursPage> {
           //
           // Hours
           //
+          const SizedBox(height: 8, width: 8),
+          const Text('и часы:'),
           const SizedBox(height: 8, width: 8),
           for (int i = 0; i < 50; i += 10)
             SizedBox(
@@ -189,41 +187,6 @@ class _SelectHoursPageState extends State<SelectHoursPage> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  //
-  //
-  //
-
-  Widget _bottomMainButtons() {
-    return ColoredBox(
-      color: const Color(0xFFEEEEEE),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(2),
-            child: OutlinedButton(
-              onPressed: ___vm.onCancel,
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                child: Text('Cancel'),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(2),
-            child: OutlinedButton(
-              onPressed: ___vm.onSave,
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                child: Text('Сохранить'),
-              ),
-            ),
-          )
-        ],
       ),
     );
   }

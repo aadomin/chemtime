@@ -77,8 +77,8 @@ class EmployeesOfWeekPageVM with ChangeNotifier {
     _loadData();
   }
 
-  void onEmployeeTap(EmployeeEntity employee) {
-    Navigator.of(context).push(
+  Future<void> onEmployeeTap(EmployeeEntity employee) async {
+    await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => DetailsPageDI(
           selectedDayOfWeek: selectedDayOfWeek,
@@ -86,6 +86,8 @@ class EmployeesOfWeekPageVM with ChangeNotifier {
         ),
       ),
     );
+    //ТУТВОПРОС
+    _loadData();
   }
 
   void onHorizontalScrollPage(int page) {

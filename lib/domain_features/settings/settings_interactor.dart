@@ -25,7 +25,7 @@ class SettingsInteractor with ChangeNotifier {
     throw 'not implemented';
   }
 
-  Future<void> saveSettingsToFile(SettingsEntity settings) {
+  Future<void> saveSettingsToFile(SettingsEntity settings, String pathToFile) {
     throw 'not implemented';
   }
 

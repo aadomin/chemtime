@@ -1,8 +1,7 @@
-import 'package:chemtime/domain_entities/stake_item/stake_item.dart';
 import 'package:flutter/material.dart';
 
-class SelectStakePageVM with ChangeNotifier {
-  SelectStakePageVM({
+class CalculatorOfStakeVM with ChangeNotifier {
+  CalculatorOfStakeVM({
     required this.context,
     //required this.hardworkInteractor,
   });
@@ -106,8 +105,10 @@ class SelectStakePageVM with ChangeNotifier {
       (firstLineSelectedElement.toDouble() /
           secondLineSelectedElement.toDouble());
 
+  double get resultHoursRounded => (resultHours * 10).round() / 10;
+
   void onSave() {
-    Navigator.of(context).pop(resultHours);
+    Navigator.of(context).pop(resultHoursRounded);
   }
 
   void onCancel() {

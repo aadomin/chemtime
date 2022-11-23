@@ -1,4 +1,4 @@
-import 'package:chemtime/ui_pages/select_stake/select_stake_page_di.dart';
+import 'package:chemtime/ui_pages/select_stake/calculator_of_stake_page_di.dart';
 import 'package:flutter/material.dart';
 
 class SelectHoursPageVM with ChangeNotifier {
@@ -59,10 +59,11 @@ class SelectHoursPageVM with ChangeNotifier {
     // ТУТВОПРОС
     dynamic result = await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const SelectStakePageDI(),
+        builder: (context) => const CalculatorOfStakeDI(),
       ),
     );
-    if (result is double) selectedHours = result;
+    if (result is! double) return;
+    selectedHours = result;
     textController.text = selectedHours.toString();
     notifyListeners();
     onSave();

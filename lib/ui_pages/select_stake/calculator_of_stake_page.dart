@@ -1,20 +1,20 @@
-import 'package:chemtime/ui_pages/select_stake/select_stake_page_vm.dart';
+import 'package:chemtime/ui_pages/select_stake/calculator_of_stake_page_vm.dart';
 import 'package:flutter/material.dart';
 
-class SelectStakePage extends StatefulWidget {
-  const SelectStakePage({
+class CalculatorOfStakePage extends StatefulWidget {
+  const CalculatorOfStakePage({
     required this.viewModel,
     Key? key,
   }) : super(key: key);
 
-  final SelectStakePageVM viewModel;
+  final CalculatorOfStakeVM viewModel;
 
   @override
-  State<SelectStakePage> createState() => _SelectStakePageState();
+  State<CalculatorOfStakePage> createState() => _CalculatorOfStakePageState();
 }
 
-class _SelectStakePageState extends State<SelectStakePage> {
-  SelectStakePageVM get ___vm => widget.viewModel;
+class _CalculatorOfStakePageState extends State<CalculatorOfStakePage> {
+  CalculatorOfStakeVM get ___vm => widget.viewModel;
 
   @override
   void initState() {
@@ -68,8 +68,8 @@ class _SelectStakePageState extends State<SelectStakePage> {
                                   child: InkWell(
                                     child: ColoredBox(
                                       color: item.value
-                                          ? Colors.lightGreen
-                                          : Colors.grey,
+                                          ? Color.fromARGB(116, 101, 139, 57)
+                                          : Color.fromARGB(79, 0, 0, 0),
                                       child: Center(
                                         child: Text(item.key),
                                       ),
@@ -105,8 +105,8 @@ class _SelectStakePageState extends State<SelectStakePage> {
                                   child: InkWell(
                                     child: ColoredBox(
                                       color: ___vm.firstLine[i]!
-                                          ? Colors.lightGreen
-                                          : Colors.grey,
+                                          ? Color.fromARGB(116, 101, 139, 57)
+                                          : Color.fromARGB(79, 0, 0, 0),
                                       child: Center(
                                         child: Text(i.toString()),
                                       ),
@@ -140,8 +140,8 @@ class _SelectStakePageState extends State<SelectStakePage> {
                                   child: InkWell(
                                     child: ColoredBox(
                                       color: ___vm.secondLine[i]!
-                                          ? Colors.lightGreen
-                                          : Colors.grey,
+                                          ? Color.fromARGB(116, 101, 139, 57)
+                                          : Color.fromARGB(79, 0, 0, 0),
                                       child: Center(
                                         child: Text(i.toString()),
                                       ),
@@ -159,8 +159,14 @@ class _SelectStakePageState extends State<SelectStakePage> {
                     const SizedBox(height: 20),
 
                     const Divider(),
-                    Text(
-                        ' ${___vm.firstLineSelectedElement}/${___vm.secondLineSelectedElement} от ${___vm.selectedDaysAmount} будет ${___vm.resultHours}')
+                    Builder(builder: (context) {
+                      //ТУТВОПРОС стоит избегать присвоения виджета?
+                      var text = 'От ${___vm.selectedDaysAmount} дней ';
+                      text +=
+                          '${___vm.firstLineSelectedElement}/${___vm.secondLineSelectedElement}';
+                      text += 'доля равна ${___vm.resultHoursRounded} часам';
+                      return Text(text);
+                    })
                   ],
                 ),
               ),
@@ -180,10 +186,12 @@ class _SelectStakePageState extends State<SelectStakePage> {
                     padding: const EdgeInsets.all(2),
                     child: OutlinedButton(
                       onPressed: ___vm.onCancel,
-                      child: const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                        child: Text('Cancel'),
+                      child: const Center(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 12),
+                          child: Text('Отмена'),
+                        ),
                       ),
                     ),
                   ),
@@ -191,10 +199,14 @@ class _SelectStakePageState extends State<SelectStakePage> {
                     padding: const EdgeInsets.all(2),
                     child: OutlinedButton(
                       onPressed: ___vm.onSave,
-                      child: const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                        child: Text('Сохранить'),
+                      //ТУТВОПРОС
+                      child: const ColoredBox(
+                        color: Color.fromARGB(21, 101, 139, 57),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 12),
+                          child: Text('Сохранить'),
+                        ),
                       ),
                     ),
                   )

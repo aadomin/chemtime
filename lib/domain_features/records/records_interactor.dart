@@ -26,6 +26,7 @@ class RecordsInteractor with ChangeNotifier {
   //
 
   late List<RecordEntity> records; // M A I N   L I S T
+  // ТУТВОПРОС
 
   //
 
@@ -56,10 +57,7 @@ class RecordsInteractor with ChangeNotifier {
     throw 'not implemented';
   }
 
-  //
-
-  // M A I N   T H I N G
-
+  /// Main thing
   List<RecordEntity> getRecordsOfEmployeeAtWeek(
       EmployeeEntity employee, DateTime dayOfWeek) {
     if (!settingsInteractor.wasEmployeeInTheCompanyAtWeek(
@@ -77,7 +75,9 @@ class RecordsInteractor with ChangeNotifier {
     return listOfRecords;
   }
 
-  //TODO сеттеры с проверкой авторизации пользователя!
+  // ТУТВОПРОС
+  // TODO write запросы с проверкой авторизации пользователя!
+  // нужно ли
 
   Future<void> addRecord({
     required String projectStringShortcut,
@@ -92,20 +92,24 @@ class RecordsInteractor with ChangeNotifier {
       throw Exception('shortcutError');
     }
 
-    //TODO repo
-    records = [
-      ...records,
-      RecordEntity(
+    try {
+      var newRecord = RecordEntity(
         stringShortcut: projectStringShortcut,
         employeeName: employee.name,
         hours: hours,
         firstDayOfThatWeek: dayOfWeek.mondayOfThisWeek,
         timestamp: DateTime.now(),
         nonUniqueKey: Random().nextInt(32000),
-      )
-    ];
-    notifyListeners();
-    return;
+      );
+
+      await recordsRepository.addRecord(newRecord); //TODO repo
+
+      records = [...records, newRecord];
+      notifyListeners();
+      return;
+    } catch (e) {
+      debugPrint('fuck'); //TODO
+    }
   }
 
   Future<void> addRecordWithProject({
@@ -157,8 +161,14 @@ class RecordsInteractor with ChangeNotifier {
     if (records.where((e) => e == record).isEmpty) {
       throw Exception('record not found');
     }
-    records.remove(record); //TODO repo
-    notifyListeners();
+    try {
+      await recordsRepository.removeRecord(record); //TODO repo
+      records.remove(record); //TODO repo
+
+      notifyListeners();
+    } on Exception catch (e) {
+      debugPrint('fuck'); //TODO
+    }
   }
 
   Future<void> replaceRecord({
@@ -169,18 +179,33 @@ class RecordsInteractor with ChangeNotifier {
       throw Exception('record not found');
     }
 
-    //TODO repo
-    records = records.map((e) => e == oldRecord ? newRecord : e).toList();
+    try {
+      await recordsRepository.updateRecord(oldRecord, newRecord); //TODO repo
 
-    notifyListeners();
+      records = records.map((e) => e == oldRecord ? newRecord : e).toList();
+      // ТУТВОПРОС адекватно ли
 
-    // ТУТВОПРОС норм ли замена пункта
-    // было так раньше
-    // records.remove(oldRecord);
-    // records.add(newRecord);
+      notifyListeners();
 
-    // records[records.indexWhere((element) => element == record)] =
-    //     records[records.indexWhere((element) => element == record)]
-    //         .copyWith(hours: selectedHours);
+      // ТУТВОПРОС норм ли замена пункта
+      // было так раньше
+      // records.remove(oldRecord);
+      // records.add(newRecord);
+
+      // records[records.indexWhere((element) => element == record)] =
+      //     records[records.indexWhere((element) => element == record)]
+      //         .copyWith(hours: selectedHours);
+    } catch (e) {
+      debugPrint('fuck'); //TODO
+    }
+  }
+
+  Future<List<RecordEntity>> loadRecordsFromFile(String pathToFile) {
+    throw 'not implemented';
+  }
+
+  Future<void> saveSettingsToFile(
+      List<RecordEntity> records, String pathToFile) {
+    throw 'not implemented';
   }
 }

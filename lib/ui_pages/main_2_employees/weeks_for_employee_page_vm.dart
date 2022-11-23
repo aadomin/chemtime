@@ -97,5 +97,6 @@ class WeeksForEmployeePageVM with ChangeNotifier {
         ),
       ),
     );
+    //ТУТВОПРОС не пришлось перезагружать, а он обновился
   }
 }

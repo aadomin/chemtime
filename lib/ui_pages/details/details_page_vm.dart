@@ -147,14 +147,14 @@ class DetailsPageVM with ChangeNotifier {
       _showMessageReadOnlyUser();
       return;
     }
-    var newHours =
+    dynamic newHours =
         await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return SelectHoursPageDI(
-                selectedHours: record.hours,
-                stringShortcut: record.stringShortcut,
-              );
-            })) ??
-            0;
+      return SelectHoursPageDI(
+        selectedHours: record.hours,
+        stringShortcut: record.stringShortcut,
+      );
+    }));
+    if (newHours is! double) return;
 
     var oldRecord = record;
     var newRecord = record.copyWith(hours: newHours);

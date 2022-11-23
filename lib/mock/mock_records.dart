@@ -3,7 +3,7 @@ import 'package:chemtime/mock/mock_settings.dart';
 import 'package:dart_date/dart_date.dart';
 import 'package:chemtime/domain_entities/record/record_entity.dart';
 
-class MockRecordsProvider {
+class MockRecords {
   List<RecordEntity> loadMockRecords() {
     final days = <DateTime>[
       DateTime.now().previousWeek,
